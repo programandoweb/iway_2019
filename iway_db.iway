@@ -1,0 +1,2207 @@
+# ---------------------------------------------------------------------- #
+# Script generated with: DeZign for Databases v4.1.3                     #
+# Target DBMS:           MySQL 5                                         #
+# Project file:          proycto.dez                                     #
+# Project name:                                                          #
+# Author:                                                                #
+# Script type:           Database creation script                        #
+# Created on:            2019-04-04 13:50                                #
+# ---------------------------------------------------------------------- #
+
+
+# ---------------------------------------------------------------------- #
+# Tables                                                                 #
+# ---------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------- #
+# Add table "cf_ciclos_pagos"                                            #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE cf_ciclos_pagos (
+    ciclos_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    centro_de_costos INTEGER(11) NOT NULL,
+    mes INTEGER(2) NOT NULL,
+    ciclo_produccion_id VARCHAR(16) NOT NULL,
+    nombre VARCHAR(30) NOT NULL,
+    fecha_desde DATE NOT NULL,
+    fecha_hasta DATE NOT NULL,
+    TRM_Liquidacion DECIMAL(10,2) DEFAULT '0.00',
+    estado INTEGER(1) NOT NULL DEFAULT '0',
+    CONSTRAINT PK_cf_ciclos_pagos PRIMARY KEY (ciclos_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_administrativo"                                         #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_administrativo (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    tipo_identidad_id INTEGER(11) NOT NULL,
+    empresa_id INTEGER(11) NOT NULL,
+    eps_id INTEGER(11) NOT NULL,
+    caja_compensacion_id INTEGER(11) NOT NULL,
+    tipo_cliente VARCHAR(50) NOT NULL,
+    regimen_empresa VARCHAR(50) NOT NULL,
+    naturaleza VARCHAR(50) NOT NULL,
+    numero_identificacion VARCHAR(50) NOT NULL,
+    digito_verificacion INTEGER(11) NOT NULL,
+    nombre_legal VARCHAR(50) NOT NULL,
+    nombre_comercial VARCHAR(100) NOT NULL,
+    representante_legal VARCHAR(100) NOT NULL,
+    id_representante_legal INTEGER(20) NOT NULL,
+    ciudad_expedicion VARCHAR(100) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    persona_de_contacto VARCHAR(100) NOT NULL,
+    cargo VARCHAR(100) NOT NULL,
+    pagina_web VARCHAR(100) NOT NULL,
+    Documento_moneda_extranjera TINYINT(1) NOT NULL,
+    credito VARCHAR(2) NOT NULL,
+    dias_de_credito INTEGER(11) NOT NULL,
+    Cupo_credito FLOAT NOT NULL,
+    vendeddor VARCHAR(100) NOT NULL,
+    lista_de_precios VARCHAR(2) NOT NULL,
+    suspendido_ventas TINYINT(1) NOT NULL,
+    Fecha_registro DATE NOT NULL,
+    responsable_creacion VARCHAR(100) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_administrativo PRIMARY KEY (id, tipo_identidad_id, empresa_id, eps_id, caja_compensacion_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_asociado"                                               #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_asociado (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    tipo_identidad_id INTEGER(11) NOT NULL,
+    eps_id INTEGER(11) NOT NULL,
+    caja_compensacion_id INTEGER(11) NOT NULL,
+    id_empresa INTEGER(11) DEFAULT NULL,
+    tipo_cliente VARCHAR(50) NOT NULL,
+    regimen_empresa VARCHAR(50) NOT NULL,
+    naturaleza VARCHAR(50) NOT NULL,
+    numero_identificacion VARCHAR(50) NOT NULL,
+    digito_verificacion INTEGER(11) NOT NULL,
+    nombre_legal VARCHAR(50) NOT NULL,
+    nombre_comercial VARCHAR(100) NOT NULL,
+    representante_legal VARCHAR(100) NOT NULL,
+    id_represntante_legal INTEGER(20) NOT NULL,
+    ciudad_expedicion VARCHAR(100) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    persona_de_contacto VARCHAR(100) NOT NULL,
+    cargo VARCHAR(100) NOT NULL,
+    pagina_web VARCHAR(100) NOT NULL,
+    Documento_moneda_extranjera TINYINT(1) NOT NULL,
+    credito VARCHAR(2) NOT NULL,
+    dias_de_credito INTEGER(11) NOT NULL,
+    Cupo_credito FLOAT NOT NULL,
+    vendeddor VARCHAR(100) NOT NULL,
+    lista_de_precios VARCHAR(2) NOT NULL,
+    suspendido_ventas TINYINT(1) NOT NULL,
+    Fecha_registro DATE NOT NULL,
+    responsable_creacion VARCHAR(100) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_asociado PRIMARY KEY (id, tipo_identidad_id, eps_id, caja_compensacion_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_calendario"                                             #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_calendario (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    descripcion LONGTEXT NOT NULL,
+    color VARCHAR(255) NOT NULL,
+    textColor VARCHAR(255) NOT NULL,
+    start DATETIME NOT NULL,
+    end DATETIME NOT NULL,
+    estado TINYINT(4) NOT NULL DEFAULT '1',
+    CONSTRAINT PK_mae_calendario PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_centro_costo"                                           #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_centro_costo (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    centro_costo INTEGER(11) NOT NULL,
+    fecha_registro DATE NOT NULL,
+    Responsable_creacion INTEGER(11) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_centro_costo PRIMARY KEY (id, empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_cliente"                                                #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_cliente (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    tipo_identidad_id INTEGER(11) NOT NULL,
+    empresa_id INTEGER(11) NOT NULL,
+    tipo_cliente VARCHAR(50) NOT NULL,
+    regimen_empresa VARCHAR(50) NOT NULL,
+    naturaleza VARCHAR(50) NOT NULL,
+    numero_identificacion VARCHAR(50) NOT NULL,
+    digito_verificacion INTEGER(11) NOT NULL,
+    nombre_legal VARCHAR(50) NOT NULL,
+    nombre_comercial VARCHAR(100) NOT NULL,
+    representante_legal VARCHAR(100) NOT NULL,
+    id_represntante_legal INTEGER(20) NOT NULL,
+    ciudad_expedicion VARCHAR(100) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    persona_de_contacto VARCHAR(100) NOT NULL,
+    cargo VARCHAR(100) NOT NULL,
+    pagina_web VARCHAR(100) NOT NULL,
+    Documento_moneda_extranjera TINYINT(1) NOT NULL,
+    credito VARCHAR(2) NOT NULL,
+    dias_de_credito INTEGER(11) NOT NULL,
+    Cupo_credito FLOAT NOT NULL,
+    vendeddor VARCHAR(100) NOT NULL,
+    lista_de_precios VARCHAR(2) NOT NULL,
+    suspendido_ventas TINYINT(1) NOT NULL,
+    Fecha_registro DATE NOT NULL,
+    responsable_creacion VARCHAR(100) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_cliente PRIMARY KEY (id, tipo_identidad_id, empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_cliente_joberp"                                         #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_cliente_joberp (
+    empresa_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    regimen_empresa VARCHAR(100) NOT NULL,
+    naturaleza VARCHAR(100) NOT NULL,
+    fecha_matricula DATE NOT NULL,
+    declara_renta VARCHAR(11) NOT NULL,
+    prefijo_documento VARCHAR(50) NOT NULL,
+    tipo_identificacion INTEGER(11) NOT NULL,
+    numero_identificacion VARCHAR(50) NOT NULL,
+    digitos_verificacion INTEGER(11) NOT NULL,
+    nombre_legal VARCHAR(100) NOT NULL,
+    nombre_comercial VARCHAR(100) NOT NULL,
+    id_representante_legal VARCHAR(50) NOT NULL,
+    ciudad_expedicion INTEGER(11) NOT NULL,
+    direccion VARCHAR(100) NOT NULL,
+    ciudad INTEGER(11) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    persona_contacto VARCHAR(100) NOT NULL,
+    cargo INTEGER(11) NOT NULL,
+    pagina_web VARCHAR(200) NOT NULL,
+    descripcion_cliente VARCHAR(100) NOT NULL,
+    divisa_oficial VARCHAR(20) NOT NULL,
+    documento_moneda_extranjera VARCHAR(100) NOT NULL,
+    logo VARCHAR(200) NOT NULL,
+    logo_json LONGTEXT NOT NULL,
+    fecha_registro DATE NOT NULL,
+    responsable_creacion INTEGER(11) DEFAULT NULL,
+    demo TEXT NOT NULL,
+    color_aplicativo VARCHAR(100) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_cliente_joberp PRIMARY KEY (empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_cuenta_bancaria"                                        #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_cuenta_bancaria (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    banco_id INTEGER(10) NOT NULL,
+    usuario INTEGER(11) NOT NULL,
+    tipo_de_cuenta VARCHAR(20) NOT NULL,
+    numero_de_cuenta VARCHAR(50) NOT NULL,
+    fecha_registro DATE NOT NULL,
+    responsable_creacion INTEGER(11) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_cuenta_bancaria PRIMARY KEY (id, empresa_id, banco_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_forma_de_pago"                                          #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_forma_de_pago (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    forma_pago VARCHAR(100) NOT NULL,
+    dias_pago VARCHAR(100) NOT NULL,
+    fecha_registro DATE NOT NULL,
+    responsable_creacion INTEGER(11) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_forma_de_pago PRIMARY KEY (id, empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_inventario"                                             #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_inventario (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    inventariable TINYTEXT NOT NULL,
+    tipo_articulo VARCHAR(100) NOT NULL,
+    codigo_barra VARCHAR(100) NOT NULL,
+    referencia VARCHAR(100) NOT NULL,
+    descripcion VARCHAR(100) NOT NULL,
+    marca VARCHAR(100) NOT NULL,
+    garantia VARCHAR(100) NOT NULL,
+    foto_producto VARCHAR(100) NOT NULL,
+    linea INTEGER(11) NOT NULL,
+    unidad_de_medida INTEGER(11) NOT NULL,
+    se_compra INTEGER(11) NOT NULL,
+    retencion INTEGER(11) NOT NULL,
+    se_vende INTEGER(11) NOT NULL,
+    tarifa_iva INTEGER(11) NOT NULL,
+    precio_venta FLOAT NOT NULL,
+    cantidad_inicial INTEGER(11) NOT NULL,
+    costo_inicial FLOAT NOT NULL,
+    fecha_registro DATE NOT NULL,
+    responsable_creacion INTEGER(11) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_inventario PRIMARY KEY (id, empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_pes_inventario"                                         #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_pes_inventario (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    id_conf INTEGER(11) NOT NULL,
+    se_compra INTEGER(11) NOT NULL,
+    se_vende INTEGER(11) NOT NULL,
+    fecha_registro DATE NOT NULL,
+    responsable_creacion INTEGER(11) DEFAULT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_pes_inventario PRIMARY KEY (id, empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_proveedores"                                            #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_proveedores (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    tipo_identidad_id INTEGER(11) NOT NULL,
+    empresa_id INTEGER(11) NOT NULL,
+    rol_id INTEGER(11) NOT NULL,
+    tipo_proveedor VARCHAR(100) NOT NULL,
+    regimen_empresa VARCHAR(100) NOT NULL,
+    Naturaleza VARCHAR(100) NOT NULL,
+    numero_identificacion VARCHAR(20) NOT NULL,
+    digito_verificacion INTEGER(11) NOT NULL,
+    nombre_legal VARCHAR(100) NOT NULL,
+    nombre_comercial VARCHAR(100) NOT NULL,
+    representante_legal VARCHAR(100) NOT NULL,
+    id_representante_legal VARCHAR(100) NOT NULL,
+    ciudad_expedicion INTEGER(11) NOT NULL,
+    direccion VARCHAR(100) NOT NULL,
+    ciudad INTEGER(11) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    persona_contacto VARCHAR(100) NOT NULL,
+    cargo INTEGER(11) NOT NULL,
+    pagina_web VARCHAR(100) NOT NULL,
+    documento_moneda_extranjera TINYTEXT NOT NULL,
+    credito TINYTEXT NOT NULL,
+    dias_de_credito INTEGER(11) NOT NULL,
+    cupo_credito FLOAT NOT NULL,
+    banco INTEGER(11) NOT NULL,
+    tipo_de_cuenta VARCHAR(100) NOT NULL,
+    numero_de_cuenta VARCHAR(100) NOT NULL,
+    fecha_registro DATE NOT NULL,
+    responsable_contratacion DATE NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_proveedores PRIMARY KEY (id, tipo_identidad_id, empresa_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "mae_usuarios_empleados"                                     #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE mae_usuarios_empleados (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    tipo_identidad_id INTEGER(11) NOT NULL,
+    empresa_id INTEGER(11) NOT NULL,
+    estado_civil_id INTEGER(11) NOT NULL,
+    eps_id INTEGER(11) NOT NULL,
+    caja_compensacion_id INTEGER(11) NOT NULL,
+    user_id INTEGER(11) NOT NULL,
+    tipo_usuario INTEGER(11) NOT NULL,
+    nombre_usuario VARCHAR(100) NOT NULL,
+    rol_id INTEGER(11) NOT NULL,
+    centro_costos INTEGER(11) NOT NULL,
+    tipo_empleado VARCHAR(100) NOT NULL,
+    numero_identificacion VARCHAR(20) NOT NULL,
+    ciudad_expedicion INTEGER(11) NOT NULL,
+    primer_nombre VARCHAR(100) NOT NULL,
+    segundo_nombre VARCHAR(100) NOT NULL,
+    primer_apellido VARCHAR(100) NOT NULL,
+    segundo_apellido VARCHAR(100) NOT NULL,
+    fecha_nacimiento DATE NOT NULL,
+    lugar_nacimiento INTEGER(11) DEFAULT NULL,
+    Direccion VARCHAR(100) NOT NULL,
+    ciudad INTEGER(11) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    celular VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    cargo INTEGER(11) NOT NULL,
+    salario_basico FLOAT NOT NULL,
+    arp_id INTEGER(11) NOT NULL,
+    pension INTEGER(11) NOT NULL,
+    censatia INTEGER(11) NOT NULL,
+    forma_de_pago INTEGER(11) NOT NULL,
+    tipo_de_contratacion INTEGER(11) NOT NULL,
+    moneda_de_pago VARCHAR(20) NOT NULL,
+    fecha_contratacion DATE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    foto_funcionario VARCHAR(100) NOT NULL,
+    firma VARCHAR(100) NOT NULL,
+    token VARCHAR(100) NOT NULL,
+    inicio_sesion VARCHAR(100) NOT NULL,
+    fin_sesion VARCHAR(100) NOT NULL,
+    fecha_registro VARCHAR(100) NOT NULL,
+    responsable_creacion INTEGER(11) NOT NULL,
+    estado TINYINT(1) NOT NULL,
+    CONSTRAINT PK_mae_usuarios_empleados PRIMARY KEY (id, tipo_identidad_id, empresa_id, estado_civil_id, eps_id, caja_compensacion_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "op_links"                                                   #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE op_links (
+    id_op_link INTEGER(11) NOT NULL AUTO_INCREMENT,
+    id_link INTEGER(11) NOT NULL,
+    contador INTEGER(11) NOT NULL,
+    CONSTRAINT PK_op_links PRIMARY KEY (id_op_link)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci ROW_FORMAT=COMPACT;
+
+# ---------------------------------------------------------------------- #
+# Add table "rp_operaciones"                                             #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE rp_operaciones (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    responsable_id INTEGER(11) NOT NULL,
+    responsable_anular INTEGER(11) NOT NULL,
+    consecutivo INTEGER(11) NOT NULL,
+    empresa_id INTEGER(11) NOT NULL,
+    centro_de_costos INTEGER(11) NOT NULL,
+    nro_documento INTEGER(11) NOT NULL,
+    pref_nro_documento VARCHAR(5) NOT NULL,
+    tipo_documento INTEGER(1) NOT NULL,
+    codigo_contable VARCHAR(10) NOT NULL,
+    codigo_contable_subfijo VARCHAR(2),
+    ciclo_produccion_id VARCHAR(100) DEFAULT '0',
+    fecha DATE NOT NULL,
+    nickname_id INTEGER(11) DEFAULT NULL,
+    cliente_id INTEGER(11) DEFAULT '0',
+    procesador_id INTEGER(11) DEFAULT '0',
+    caja_id INTEGER(11) DEFAULT '0',
+    plataforma_id INTEGER(11) DEFAULT '0',
+    master_id INTEGER(11) DEFAULT '0',
+    modelo_id INTEGER(11) DEFAULT '0',
+    debito DECIMAL(20,10) NOT NULL,
+    credito DECIMAL(20,10) NOT NULL,
+    json LONGTEXT NOT NULL,
+    estatus INTEGER(1) DEFAULT '1',
+    estado_ciclo INTEGER(11) NOT NULL DEFAULT '0',
+    CONSTRAINT PK_rp_operaciones PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_arl"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_arl (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    razon_social_arl VARCHAR(150) NOT NULL,
+    cod_minproteccion VARCHAR(20) NOT NULL,
+    nit INTEGER(11) NOT NULL,
+    div_ VARCHAR(150) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
+    ciudad VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_sys_arl PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_bancos"                                                 #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_bancos (
+    banco_id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    Entidad VARCHAR(51) NOT NULL,
+    Nit VARCHAR(13) NOT NULL,
+    DV INTEGER(11) NOT NULL,
+    Direccion VARCHAR(62) NOT NULL,
+    Ciudad VARCHAR(11) NOT NULL,
+    Departamento VARCHAR(15) NOT NULL,
+    Telefono VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_sys_bancos PRIMARY KEY (banco_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_caja_comp"                                              #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_caja_comp (
+    caja_compensacion_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    razon_social_caja_comp VARCHAR(150) NOT NULL,
+    cod_minproteccion VARCHAR(20) NOT NULL,
+    nit INTEGER(11) NOT NULL,
+    div_ VARCHAR(62) NOT NULL,
+    direccion VARCHAR(150) NOT NULL,
+    ciudad VARCHAR(150) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_sys_caja_comp PRIMARY KEY (caja_compensacion_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_codigos_cup"                                            #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_codigos_cup (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    seccion VARCHAR(50) NOT NULL,
+    capitulo VARCHAR(150) NOT NULL,
+    codigo VARCHAR(50) NOT NULL,
+    descripcion VARCHAR(1000) NOT NULL,
+    CONSTRAINT PK_sys_codigos_cup PRIMARY KEY (id)
+)
+ ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_eps"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_eps (
+    eps_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    razon_social_eps VARCHAR(150) NOT NULL,
+    cod_minproteccion VARCHAR(20) NOT NULL,
+    NIT VARCHAR(20) NOT NULL,
+    DV INTEGER(11) NOT NULL,
+    Direccion VARCHAR(100) NOT NULL,
+    ciudad VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_sys_eps PRIMARY KEY (eps_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_estado_civil"                                           #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_estado_civil (
+    estado_civil_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    Estado VARCHAR(60) NOT NULL,
+    CONSTRAINT PK_sys_estado_civil PRIMARY KEY (estado_civil_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_gastos_generales"                                       #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_gastos_generales (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(150) NOT NULL,
+    tipo_gasto VARCHAR(100) NOT NULL,
+    retencion VARCHAR(100) NOT NULL,
+    iva VARCHAR(100) NOT NULL,
+    admon INTEGER(11) NOT NULL,
+    contrapartida INTEGER(11) NOT NULL,
+    CONSTRAINT PK_sys_gastos_generales PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_iva"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_iva (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    detalle VARCHAR(20) NOT NULL,
+    valor VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_sys_iva PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_logs"                                                   #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_logs (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    user_id INTEGER(11) NOT NULL,
+    fecha DATETIME NOT NULL,
+    tipo_transaccion INTEGER(1) NOT NULL,
+    tabla_afectada VARCHAR(100) NOT NULL,
+    registro_afectado_id INTEGER(11) DEFAULT NULL,
+    modulo_donde_produjo_cambio VARCHAR(250) DEFAULT 'NULL',
+    accion INTEGER(1) NOT NULL,
+    json LONGTEXT NOT NULL,
+    CONSTRAINT PK_sys_logs PRIMARY KEY (id, user_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_municipios"                                             #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_municipios (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    codigo VARCHAR(6) NOT NULL,
+    ciudad VARCHAR(27) NOT NULL,
+    departamento VARCHAR(56) NOT NULL,
+    union_ VARCHAR(70) NOT NULL,
+    CONSTRAINT PK_sys_municipios PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `sys_municipios` (`id`, `codigo`, `ciudad`, `departamento`, `union_`) VALUES
+(1, '11001', 'Bogotá', 'Cundinamarca', 'Bogotá (Cundinamarca)'),
+(2, '13001', 'Cartagena', 'Bolivar', 'Cartagena (Bolivar)'),
+(3, '13006', 'Achi', 'Bolivar', 'Achi (Bolivar)'),
+(4, '13030', 'Altos Del Rosario', 'Bolivar', 'Altos Del Rosario (Bolivar)'),
+(5, '13042', 'Arenal', 'Bolivar', 'Arenal (Bolivar)'),
+(6, '13052', 'Arjona', 'Bolivar', 'Arjona (Bolivar)'),
+(7, '13062', 'Arroyohondo', 'Bolivar', 'Arroyohondo (Bolivar)'),
+(8, '13074', 'Barranco De Loba', 'Bolivar', 'Barranco De Loba (Bolivar)'),
+(9, '13140', 'Calamar', 'Bolivar', 'Calamar (Bolivar)'),
+(10, '13160', 'Cantagallo', 'Bolivar', 'Cantagallo (Bolivar)'),
+(11, '13188', 'Cicuco', 'Bolivar', 'Cicuco (Bolivar)'),
+(12, '13212', 'Cordoba', 'Bolivar', 'Cordoba (Bolivar)'),
+(13, '13222', 'Clemencia', 'Bolivar', 'Clemencia (Bolivar)'),
+(14, '13244', 'El Carmen De Bolivar', 'Bolivar', 'El Carmen De Bolivar (Bolivar)'),
+(15, '13248', 'El Guamo', 'Bolivar', 'El Guamo (Bolivar)'),
+(16, '13268', 'El Peñon', 'Bolivar', 'El Peñon (Bolivar)'),
+(17, '13300', 'Hatillo De Loba', 'Bolivar', 'Hatillo De Loba (Bolivar)'),
+(18, '13430', 'Magangue', 'Bolivar', 'Magangue (Bolivar)'),
+(19, '13433', 'Mahates', 'Bolivar', 'Mahates (Bolivar)'),
+(20, '13440', 'Margarita', 'Bolivar', 'Margarita (Bolivar)'),
+(21, '13442', 'Maria La Baja', 'Bolivar', 'Maria La Baja (Bolivar)'),
+(22, '13458', 'Montecristo', 'Bolivar', 'Montecristo (Bolivar)'),
+(23, '13468', 'Mompos', 'Bolivar', 'Mompos (Bolivar)'),
+(24, '13473', 'Morales', 'Bolivar', 'Morales (Bolivar)'),
+(25, '13549', 'Pinillos', 'Bolivar', 'Pinillos (Bolivar)'),
+(26, '13580', 'Regidor', 'Bolivar', 'Regidor (Bolivar)'),
+(27, '13600', 'Rio Viejo', 'Bolivar', 'Rio Viejo (Bolivar)'),
+(28, '13620', 'San Cristobal', 'Bolivar', 'San Cristobal (Bolivar)'),
+(29, '13647', 'San Estanislao', 'Bolivar', 'San Estanislao (Bolivar)'),
+(30, '13650', 'San Fernando', 'Bolivar', 'San Fernando (Bolivar)'),
+(31, '13654', 'San Jacinto', 'Bolivar', 'San Jacinto (Bolivar)'),
+(32, '13655', 'San Jacinto Del Cauca', 'Bolivar', 'San Jacinto Del Cauca (Bolivar)'),
+(33, '13657', 'San Juan Nepomuceno', 'Bolivar', 'San Juan Nepomuceno (Bolivar)'),
+(34, '13667', 'San Martin De Loba', 'Bolivar', 'San Martin De Loba (Bolivar)'),
+(35, '13670', 'San Pablo', 'Bolivar', 'San Pablo (Bolivar)'),
+(36, '13673', 'Santa Catalina', 'Bolivar', 'Santa Catalina (Bolivar)'),
+(37, '13683', 'Santa Rosa', 'Bolivar', 'Santa Rosa (Bolivar)'),
+(38, '13688', 'Santa Rosa Del Sur', 'Bolivar', 'Santa Rosa Del Sur (Bolivar)'),
+(39, '13744', 'Simiti', 'Bolivar', 'Simiti (Bolivar)'),
+(40, '13760', 'Soplaviento', 'Bolivar', 'Soplaviento (Bolivar)'),
+(41, '13780', 'Talaigua Nuevo', 'Bolivar', 'Talaigua Nuevo (Bolivar)'),
+(42, '13810', 'Tiquisio', 'Bolivar', 'Tiquisio (Bolivar)'),
+(43, '13836', 'Turbaco', 'Bolivar', 'Turbaco (Bolivar)'),
+(44, '13838', 'Turbana', 'Bolivar', 'Turbana (Bolivar)'),
+(45, '13873', 'Villanueva', 'Bolivar', 'Villanueva (Bolivar)'),
+(46, '13894', 'Zambrano', 'Bolivar', 'Zambrano (Bolivar)'),
+(47, '15001', 'Tunja', 'Boyacá', 'Tunja (Boyacá)'),
+(48, '15022', 'Almeida', 'Boyacá', 'Almeida (Boyacá)'),
+(49, '15047', 'Aquitania', 'Boyacá', 'Aquitania (Boyacá)'),
+(50, '15051', 'Arcabuco', 'Boyacá', 'Arcabuco (Boyacá)'),
+(51, '15087', 'Belen', 'Boyacá', 'Belen (Boyacá)'),
+(52, '15090', 'Berbeo', 'Boyacá', 'Berbeo (Boyacá)'),
+(53, '15092', 'Beteitiva', 'Boyacá', 'Beteitiva (Boyacá)'),
+(54, '15097', 'Boavita', 'Boyacá', 'Boavita (Boyacá)'),
+(55, '15104', 'Boyacá', 'Boyacá', 'Boyacá (Boyacá)'),
+(56, '15106', 'Briceño', 'Boyacá', 'Briceño (Boyacá)'),
+(57, '15109', 'Buenavista', 'Boyacá', 'Buenavista (Boyacá)'),
+(58, '15114', 'Busbanza', 'Boyacá', 'Busbanza (Boyacá)'),
+(59, '15131', 'Caldas', 'Boyacá', 'Caldas (Boyacá)'),
+(60, '15135', 'Campohermoso', 'Boyacá', 'Campohermoso (Boyacá)'),
+(61, '15162', 'Cerinza', 'Boyacá', 'Cerinza (Boyacá)'),
+(62, '15172', 'Chinavita', 'Boyacá', 'Chinavita (Boyacá)'),
+(63, '15176', 'Chiquinquira', 'Boyacá', 'Chiquinquira (Boyacá)'),
+(64, '15180', 'Chiscas', 'Boyacá', 'Chiscas (Boyacá)'),
+(65, '15183', 'Chita', 'Boyacá', 'Chita (Boyacá)'),
+(66, '15185', 'Chitaraque', 'Boyacá', 'Chitaraque (Boyacá)'),
+(67, '15187', 'Chivata', 'Boyacá', 'Chivata (Boyacá)'),
+(68, '15189', 'Cienega', 'Boyacá', 'Cienega (Boyacá)'),
+(69, '15204', 'Combita', 'Boyacá', 'Combita (Boyacá)'),
+(70, '15212', 'Coper', 'Boyacá', 'Coper (Boyacá)'),
+(71, '15215', 'Corrales', 'Boyacá', 'Corrales (Boyacá)'),
+(72, '15218', 'Covarachia', 'Boyacá', 'Covarachia (Boyacá)'),
+(73, '15223', 'Cubara', 'Boyacá', 'Cubara (Boyacá)'),
+(74, '15224', 'Cucaita', 'Boyacá', 'Cucaita (Boyacá)'),
+(75, '15226', 'Cuitiva', 'Boyacá', 'Cuitiva (Boyacá)'),
+(76, '15232', 'Chiquiza', 'Boyacá', 'Chiquiza (Boyacá)'),
+(77, '15236', 'Chivor', 'Boyacá', 'Chivor (Boyacá)'),
+(78, '15238', 'Duitama', 'Boyacá', 'Duitama (Boyacá)'),
+(79, '15244', 'El Cocuy', 'Boyacá', 'El Cocuy (Boyacá)'),
+(80, '15248', 'El Espino', 'Boyacá', 'El Espino (Boyacá)'),
+(81, '15272', 'Firavitoba', 'Boyacá', 'Firavitoba (Boyacá)'),
+(82, '15276', 'Floresta', 'Boyacá', 'Floresta (Boyacá)'),
+(83, '15293', 'Gachantiva', 'Boyacá', 'Gachantiva (Boyacá)'),
+(84, '15296', 'Gameza', 'Boyacá', 'Gameza (Boyacá)'),
+(85, '15299', 'Garagoa', 'Boyacá', 'Garagoa (Boyacá)'),
+(86, '15317', 'Guacamayas', 'Boyacá', 'Guacamayas (Boyacá)'),
+(87, '15322', 'Guateque', 'Boyacá', 'Guateque (Boyacá)'),
+(88, '15325', 'Guayata', 'Boyacá', 'Guayata (Boyacá)'),
+(89, '15332', 'Guican', 'Boyacá', 'Guican (Boyacá)'),
+(90, '15362', 'Iza', 'Boyacá', 'Iza (Boyacá)'),
+(91, '15367', 'Jenesano', 'Boyacá', 'Jenesano (Boyacá)'),
+(92, '15368', 'Jerico', 'Boyacá', 'Jerico (Boyacá)'),
+(93, '15377', 'Labranzagrande', 'Boyacá', 'Labranzagrande (Boyacá)'),
+(94, '15380', 'La Capilla', 'Boyacá', 'La Capilla (Boyacá)'),
+(95, '15401', 'La Victoria', 'Boyacá', 'La Victoria (Boyacá)'),
+(96, '15403', 'La Uvita', 'Boyacá', 'La Uvita (Boyacá)'),
+(97, '15407', 'Villa De Leyva', 'Boyacá', 'Villa De Leyva (Boyacá)'),
+(98, '15425', 'Macanal', 'Boyacá', 'Macanal (Boyacá)'),
+(99, '15442', 'Maripi', 'Boyacá', 'Maripi (Boyacá)'),
+(100, '15455', 'Miraflores', 'Boyacá', 'Miraflores (Boyacá)'),
+(101, '15464', 'Mongua', 'Boyacá', 'Mongua (Boyacá)'),
+(102, '15466', 'Mongui', 'Boyacá', 'Mongui (Boyacá)'),
+(103, '15469', 'Moniquira', 'Boyacá', 'Moniquira (Boyacá)'),
+(104, '15476', 'Motavita', 'Boyacá', 'Motavita (Boyacá)'),
+(105, '15480', 'Muzo', 'Boyacá', 'Muzo (Boyacá)'),
+(106, '15491', 'Nobsa', 'Boyacá', 'Nobsa (Boyacá)'),
+(107, '15494', 'Nuevo Colon', 'Boyacá', 'Nuevo Colon (Boyacá)'),
+(108, '15500', 'Oicata', 'Boyacá', 'Oicata (Boyacá)'),
+(109, '15507', 'Otanche', 'Boyacá', 'Otanche (Boyacá)'),
+(110, '15511', 'Pachavita', 'Boyacá', 'Pachavita (Boyacá)'),
+(111, '15514', 'Paez', 'Boyacá', 'Paez (Boyacá)'),
+(112, '15516', 'Paipa', 'Boyacá', 'Paipa (Boyacá)'),
+(113, '15518', 'Pajarito', 'Boyacá', 'Pajarito (Boyacá)'),
+(114, '15522', 'Panqueba', 'Boyacá', 'Panqueba (Boyacá)'),
+(115, '15531', 'Pauna', 'Boyacá', 'Pauna (Boyacá)'),
+(116, '15533', 'Paya', 'Boyacá', 'Paya (Boyacá)'),
+(117, '15537', 'Paz De Rio', 'Boyacá', 'Paz De Rio (Boyacá)'),
+(118, '15542', 'Pesca', 'Boyacá', 'Pesca (Boyacá)'),
+(119, '15550', 'Pisba', 'Boyacá', 'Pisba (Boyacá)'),
+(120, '15572', 'Puerto Boyacá', 'Boyacá', 'Puerto Boyacá (Boyacá)'),
+(121, '15580', 'Quipama', 'Boyacá', 'Quipama (Boyacá)'),
+(122, '15599', 'Ramiriqui', 'Boyacá', 'Ramiriqui (Boyacá)'),
+(123, '15600', 'Raquira', 'Boyacá', 'Raquira (Boyacá)'),
+(124, '15621', 'Rondon', 'Boyacá', 'Rondon (Boyacá)'),
+(125, '15632', 'Saboya', 'Boyacá', 'Saboya (Boyacá)'),
+(126, '15638', 'Sachica', 'Boyacá', 'Sachica (Boyacá)'),
+(127, '15646', 'Samaca', 'Boyacá', 'Samaca (Boyacá)'),
+(128, '15660', 'San Eduardo', 'Boyacá', 'San Eduardo (Boyacá)'),
+(129, '15664', 'San Jose De Pare', 'Boyacá', 'San Jose De Pare (Boyacá)'),
+(130, '15667', 'San Luis De Gaceno', 'Boyacá', 'San Luis De Gaceno (Boyacá)'),
+(131, '15673', 'San Mateo', 'Boyacá', 'San Mateo (Boyacá)'),
+(132, '15676', 'San Miguel De Sema', 'Boyacá', 'San Miguel De Sema (Boyacá)'),
+(133, '15681', 'San Pablo De Borbur', 'Boyacá', 'San Pablo De Borbur (Boyacá)'),
+(134, '15686', 'Santana', 'Boyacá', 'Santana (Boyacá)'),
+(135, '15690', 'Santa Maria', 'Boyacá', 'Santa Maria (Boyacá)'),
+(136, '15693', 'Santa Rosa De Viterbo', 'Boyacá', 'Santa Rosa De Viterbo (Boyacá)'),
+(137, '15696', 'Santa Sofia', 'Boyacá', 'Santa Sofia (Boyacá)'),
+(138, '15720', 'Sativanorte', 'Boyacá', 'Sativanorte (Boyacá)'),
+(139, '15723', 'Sativasur', 'Boyacá', 'Sativasur (Boyacá)'),
+(140, '15740', 'Siachoque', 'Boyacá', 'Siachoque (Boyacá)'),
+(141, '15753', 'Soata', 'Boyacá', 'Soata (Boyacá)'),
+(142, '15755', 'Socota', 'Boyacá', 'Socota (Boyacá)'),
+(143, '15757', 'Socha', 'Boyacá', 'Socha (Boyacá)'),
+(144, '15759', 'Sogamoso', 'Boyacá', 'Sogamoso (Boyacá)'),
+(145, '15761', 'Somondoco', 'Boyacá', 'Somondoco (Boyacá)'),
+(146, '15762', 'Sora', 'Boyacá', 'Sora (Boyacá)'),
+(147, '15763', 'Sotaquira', 'Boyacá', 'Sotaquira (Boyacá)'),
+(148, '15764', 'Soraca', 'Boyacá', 'Soraca (Boyacá)'),
+(149, '15774', 'Susacon', 'Boyacá', 'Susacon (Boyacá)'),
+(150, '15776', 'Sutamarchan', 'Boyacá', 'Sutamarchan (Boyacá)'),
+(151, '15778', 'Sutatenza', 'Boyacá', 'Sutatenza (Boyacá)'),
+(152, '15790', 'Tasco', 'Boyacá', 'Tasco (Boyacá)'),
+(153, '15798', 'Tenza', 'Boyacá', 'Tenza (Boyacá)'),
+(154, '15804', 'Tibana', 'Boyacá', 'Tibana (Boyacá)'),
+(155, '15806', 'Tibasosa', 'Boyacá', 'Tibasosa (Boyacá)'),
+(156, '15808', 'Tinjaca', 'Boyacá', 'Tinjaca (Boyacá)'),
+(157, '15810', 'Tipacoque', 'Boyacá', 'Tipacoque (Boyacá)'),
+(158, '15814', 'Toca', 'Boyacá', 'Toca (Boyacá)'),
+(159, '15816', 'Togui', 'Boyacá', 'Togui (Boyacá)'),
+(160, '15820', 'Topaga', 'Boyacá', 'Topaga (Boyacá)'),
+(161, '15822', 'Tota', 'Boyacá', 'Tota (Boyacá)'),
+(162, '15832', 'Tunungua', 'Boyacá', 'Tunungua (Boyacá)'),
+(163, '15835', 'Turmeque', 'Boyacá', 'Turmeque (Boyacá)'),
+(164, '15837', 'Tuta', 'Boyacá', 'Tuta (Boyacá)'),
+(165, '15839', 'Tutaza', 'Boyacá', 'Tutaza (Boyacá)'),
+(166, '15842', 'Umbita', 'Boyacá', 'Umbita (Boyacá)'),
+(167, '15861', 'Ventaquemada', 'Boyacá', 'Ventaquemada (Boyacá)'),
+(168, '15879', 'Viracacha', 'Boyacá', 'Viracacha (Boyacá)'),
+(169, '15897', 'Zetaquira', 'Boyacá', 'Zetaquira (Boyacá)'),
+(170, '17001', 'Manizales', 'Caldas', 'Manizales (Caldas)'),
+(171, '17013', 'Aguadas', 'Caldas', 'Aguadas (Caldas)'),
+(172, '17042', 'Anserma', 'Caldas', 'Anserma (Caldas)'),
+(173, '17050', 'Aranzazu', 'Caldas', 'Aranzazu (Caldas)'),
+(174, '17088', 'Belalcazar', 'Caldas', 'Belalcazar (Caldas)'),
+(175, '17174', 'Chinchina', 'Caldas', 'Chinchina (Caldas)'),
+(176, '17272', 'Filadelfia', 'Caldas', 'Filadelfia (Caldas)'),
+(177, '17380', 'La Dorada', 'Caldas', 'La Dorada (Caldas)'),
+(178, '17388', 'La Merced', 'Caldas', 'La Merced (Caldas)'),
+(179, '17433', 'Manzanares', 'Caldas', 'Manzanares (Caldas)'),
+(180, '17442', 'Marmato', 'Caldas', 'Marmato (Caldas)'),
+(181, '17444', 'Marquetalia', 'Caldas', 'Marquetalia (Caldas)'),
+(182, '17446', 'Marulanda', 'Caldas', 'Marulanda (Caldas)'),
+(183, '17486', 'Neira', 'Caldas', 'Neira (Caldas)'),
+(184, '17495', 'Norcasia', 'Caldas', 'Norcasia (Caldas)'),
+(185, '17513', 'Pacora', 'Caldas', 'Pacora (Caldas)'),
+(186, '17524', 'Palestina', 'Caldas', 'Palestina (Caldas)'),
+(187, '17541', 'Pensilvania', 'Caldas', 'Pensilvania (Caldas)'),
+(188, '17614', 'Riosucio', 'Caldas', 'Riosucio (Caldas)'),
+(189, '17616', 'Risaralda', 'Caldas', 'Risaralda (Caldas)'),
+(190, '17653', 'Salamina', 'Caldas', 'Salamina (Caldas)'),
+(191, '17662', 'Samana', 'Caldas', 'Samana (Caldas)'),
+(192, '17665', 'San Jose', 'Caldas', 'San Jose (Caldas)'),
+(193, '17777', 'Supia', 'Caldas', 'Supia (Caldas)'),
+(194, '17867', 'Victoria', 'Caldas', 'Victoria (Caldas)'),
+(195, '17873', 'Villamaria', 'Caldas', 'Villamaria (Caldas)'),
+(196, '17877', 'Viterbo', 'Caldas', 'Viterbo (Caldas)'),
+(197, '18001', 'Florencia', 'Caqueta', 'Florencia (Caqueta)'),
+(198, '18029', 'Albania', 'Caqueta', 'Albania (Caqueta)'),
+(199, '18094', 'Belen De Los Andaquies', 'Caqueta', 'Belen De Los Andaquies (Caqueta)'),
+(200, '18150', 'Cartagena Del Chaira', 'Caqueta', 'Cartagena Del Chaira (Caqueta)'),
+(201, '18205', 'Curillo', 'Caqueta', 'Curillo (Caqueta)'),
+(202, '18247', 'El Doncello', 'Caqueta', 'El Doncello (Caqueta)'),
+(203, '18256', 'El Paujil', 'Caqueta', 'El Paujil (Caqueta)'),
+(204, '18410', 'La Montañita', 'Caqueta', 'La Montañita (Caqueta)'),
+(205, '18460', 'Milan', 'Caqueta', 'Milan (Caqueta)+D162'),
+(206, '18479', 'Morelia', 'Caqueta', 'Morelia (Caqueta)'),
+(207, '18592', 'Puerto Rico', 'Caqueta', 'Puerto Rico (Caqueta)'),
+(208, '18610', 'San Jose Del Fragua', 'Caqueta', 'San Jose Del Fragua (Caqueta)'),
+(209, '18753', 'San Vicente Del Caguan', 'Caqueta', 'San Vicente Del Caguan (Caqueta)'),
+(210, '18756', 'Solano', 'Caqueta', 'Solano (Caqueta)'),
+(211, '18785', 'Solita', 'Caqueta', 'Solita (Caqueta)'),
+(212, '18860', 'Valparaiso', 'Caqueta', 'Valparaiso (Caqueta)'),
+(213, '19001', 'Popayan', 'Cauca', 'Popayan (Cauca)'),
+(214, '19022', 'Almaguer', 'Cauca', 'Almaguer (Cauca)'),
+(215, '19050', 'Argelia', 'Cauca', 'Argelia (Cauca)'),
+(216, '19075', 'Balboa', 'Cauca', 'Balboa (Cauca)'),
+(217, '19100', 'Bolivar', 'Cauca', 'Bolivar (Cauca)'),
+(218, '19110', 'Buenos Aires', 'Cauca', 'Buenos Aires (Cauca)'),
+(219, '19130', 'Cajibio', 'Cauca', 'Cajibio (Cauca)'),
+(220, '19137', 'Caldono', 'Cauca', 'Caldono (Cauca)'),
+(221, '19142', 'Caloto', 'Cauca', 'Caloto (Cauca)'),
+(222, '19212', 'Corinto', 'Cauca', 'Corinto (Cauca)'),
+(223, '19256', 'El Tambo', 'Cauca', 'El Tambo (Cauca)'),
+(224, '19290', 'Florencia', 'Cauca', 'Florencia (Cauca)'),
+(225, '19318', 'Guapi', 'Cauca', 'Guapi (Cauca)'),
+(226, '19355', 'Inza', 'Cauca', 'Inza (Cauca)'),
+(227, '19364', 'Jambalo', 'Cauca', 'Jambalo (Cauca)'),
+(228, '19392', 'La Sierra', 'Cauca', 'La Sierra (Cauca)'),
+(229, '19397', 'La Vega', 'Cauca', 'La Vega (Cauca)'),
+(230, '19418', 'Lopez', 'Cauca', 'Lopez (Cauca)'),
+(231, '19450', 'Mercaderes', 'Cauca', 'Mercaderes (Cauca)'),
+(232, '19455', 'Miranda', 'Cauca', 'Miranda (Cauca)'),
+(233, '19473', 'Morales', 'Cauca', 'Morales (Cauca)'),
+(234, '19513', 'Padilla', 'Cauca', 'Padilla (Cauca)'),
+(235, '19517', 'Paez', 'Cauca', 'Paez (Cauca)'),
+(236, '19532', 'Patia', 'Cauca', 'Patia (Cauca)'),
+(237, '19533', 'Piamonte', 'Cauca', 'Piamonte (Cauca)'),
+(238, '19548', 'Piendamo', 'Cauca', 'Piendamo (Cauca)'),
+(239, '19573', 'Puerto Tejada', 'Cauca', 'Puerto Tejada (Cauca)'),
+(240, '19585', 'Purace', 'Cauca', 'Purace (Cauca)'),
+(241, '19622', 'Rosas', 'Cauca', 'Rosas (Cauca)'),
+(242, '19693', 'San Sebastian', 'Cauca', 'San Sebastian (Cauca)'),
+(243, '19698', 'Santander De Quilichao', 'Cauca', 'Santander De Quilichao (Cauca)'),
+(244, '19701', 'Santa Rosa', 'Cauca', 'Santa Rosa (Cauca)'),
+(245, '19743', 'Silvia', 'Cauca', 'Silvia (Cauca)'),
+(246, '19760', 'Sotara', 'Cauca', 'Sotara (Cauca)'),
+(247, '19780', 'Suarez', 'Cauca', 'Suarez (Cauca)'),
+(248, '19785', 'Sucre', 'Cauca', 'Sucre (Cauca)'),
+(249, '19807', 'Timbio', 'Cauca', 'Timbio (Cauca)'),
+(250, '19809', 'Timbiqui', 'Cauca', 'Timbiqui (Cauca)'),
+(251, '19821', 'Toribio', 'Cauca', 'Toribio (Cauca)'),
+(252, '19824', 'Totoro', 'Cauca', 'Totoro (Cauca)'),
+(253, '19845', 'Villa Rica', 'Cauca', 'Villa Rica (Cauca)'),
+(254, '20001', 'Valledupar', 'Cesar', 'Valledupar (Cesar)'),
+(255, '20011', 'Aguachica', 'Cesar', 'Aguachica (Cesar)'),
+(256, '20013', 'Agustin Codazzi', 'Cesar', 'Agustin Codazzi (Cesar)'),
+(257, '20032', 'Astrea', 'Cesar', 'Astrea (Cesar)'),
+(258, '20045', 'Becerril', 'Cesar', 'Becerril (Cesar)'),
+(259, '20060', 'Bosconia', 'Cesar', 'Bosconia (Cesar)'),
+(260, '20175', 'Chimichagua', 'Cesar', 'Chimichagua (Cesar)'),
+(261, '20178', 'Chiriguana', 'Cesar', 'Chiriguana (Cesar)'),
+(262, '20228', 'Curumani', 'Cesar', 'Curumani (Cesar)'),
+(263, '20238', 'El Copey', 'Cesar', 'El Copey (Cesar)'),
+(264, '20250', 'El Paso', 'Cesar', 'El Paso (Cesar)'),
+(265, '20295', 'Gamarra', 'Cesar', 'Gamarra (Cesar)'),
+(266, '20310', 'Gonzalez', 'Cesar', 'Gonzalez (Cesar)'),
+(267, '20383', 'La Gloria', 'Cesar', 'La Gloria (Cesar)'),
+(268, '20400', 'La Jagua De Ibirico', 'Cesar', 'La Jagua De Ibirico (Cesar)'),
+(269, '20443', 'Manaure', 'Cesar', 'Manaure (Cesar)'),
+(270, '20517', 'Pailitas', 'Cesar', 'Pailitas (Cesar)'),
+(271, '20550', 'Pelaya', 'Cesar', 'Pelaya (Cesar)'),
+(272, '20570', 'Pueblo Bello', 'Cesar', 'Pueblo Bello (Cesar)'),
+(273, '20614', 'Rio De Oro', 'Cesar', 'Rio De Oro (Cesar)'),
+(274, '20621', 'La Paz', 'Cesar', 'La Paz (Cesar)'),
+(275, '20710', 'San Alberto', 'Cesar', 'San Alberto (Cesar)'),
+(276, '20750', 'San Diego', 'Cesar', 'San Diego (Cesar)'),
+(277, '20770', 'San Martin', 'Cesar', 'San Martin (Cesar)'),
+(278, '20787', 'Tamalameque', 'Cesar', 'Tamalameque (Cesar)'),
+(279, '23001', 'Monteria', 'Cordoba', 'Monteria (Cordoba)'),
+(280, '23068', 'Ayapel', 'Cordoba', 'Ayapel (Cordoba)'),
+(281, '23079', 'Buenavista', 'Cordoba', 'Buenavista (Cordoba)'),
+(282, '23090', 'Canalete', 'Cordoba', 'Canalete (Cordoba)'),
+(283, '23162', 'Cerete', 'Cordoba', 'Cerete (Cordoba)'),
+(284, '23168', 'Chima', 'Cordoba', 'Chima (Cordoba)'),
+(285, '23182', 'Chinu', 'Cordoba', 'Chinu (Cordoba)'),
+(286, '23189', 'Cienaga De Oro', 'Cordoba', 'Cienaga De Oro (Cordoba)'),
+(287, '23300', 'Cotorra', 'Cordoba', 'Cotorra (Cordoba)'),
+(288, '23350', 'La Apartada', 'Cordoba', 'La Apartada (Cordoba)'),
+(289, '23417', 'Lorica', 'Cordoba', 'Lorica (Cordoba)'),
+(290, '23419', 'Los Cordobas', 'Cordoba', 'Los Cordobas (Cordoba)'),
+(291, '23464', 'Momil', 'Cordoba', 'Momil (Cordoba)'),
+(292, '23466', 'Montelibano', 'Cordoba', 'Montelibano (Cordoba)'),
+(293, '23500', 'Moritos', 'Cordoba', 'Moritos (Cordoba)'),
+(294, '23555', 'Planeta Rica', 'Cordoba', 'Planeta Rica (Cordoba)'),
+(295, '23570', 'Pueblo Nuevo', 'Cordoba', 'Pueblo Nuevo (Cordoba)'),
+(296, '23574', 'Puerto Escondido', 'Cordoba', 'Puerto Escondido (Cordoba)'),
+(297, '23580', 'Puerto Libertador', 'Cordoba', 'Puerto Libertador (Cordoba)'),
+(298, '23586', 'Purisima', 'Cordoba', 'Purisima (Cordoba)'),
+(299, '23660', 'Sahagun', 'Cordoba', 'Sahagun (Cordoba)'),
+(300, '23670', 'San Andres Sotavento', 'Cordoba', 'San Andres Sotavento (Cordoba)'),
+(301, '23672', 'San Antero', 'Cordoba', 'San Antero (Cordoba)'),
+(302, '23675', 'San Bernardo Del Viento', 'Cordoba', 'San Bernardo Del Viento (Cordoba)'),
+(303, '23678', 'San Carlos', 'Cordoba', 'San Carlos (Cordoba)'),
+(304, '23686', 'San Pelayo', 'Cordoba', 'San Pelayo (Cordoba)'),
+(305, '23807', 'Tierralta', 'Cordoba', 'Tierralta (Cordoba)'),
+(306, '23855', 'Valencia', 'Cordoba', 'Valencia (Cordoba)'),
+(307, '25001', 'Agua De Dios', 'Cundinamarca', 'Agua De Dios (Cundinamarca)'),
+(308, '25019', 'Alban', 'Cundinamarca', 'Alban (Cundinamarca)'),
+(309, '25035', 'Anapoima', 'Cundinamarca', 'Anapoima (Cundinamarca)'),
+(310, '25040', 'Anolaima', 'Cundinamarca', 'Anolaima (Cundinamarca)'),
+(311, '25053', 'Arbelaez', 'Cundinamarca', 'Arbelaez (Cundinamarca)'),
+(312, '25086', 'Beltran', 'Cundinamarca', 'Beltran (Cundinamarca)'),
+(313, '25095', 'Bituima', 'Cundinamarca', 'Bituima (Cundinamarca)'),
+(314, '25099', 'Bojaca', 'Cundinamarca', 'Bojaca (Cundinamarca)'),
+(315, '25120', 'Cabrera', 'Cundinamarca', 'Cabrera (Cundinamarca)'),
+(316, '25123', 'Cachipay', 'Cundinamarca', 'Cachipay (Cundinamarca)'),
+(317, '25126', 'Cajica', 'Cundinamarca', 'Cajica (Cundinamarca)'),
+(318, '25148', 'Caparrapi', 'Cundinamarca', 'Caparrapi (Cundinamarca)'),
+(319, '25151', 'Caqueza', 'Cundinamarca', 'Caqueza (Cundinamarca)'),
+(320, '25154', 'Carmen De Carupa', 'Cundinamarca', 'Carmen De Carupa (Cundinamarca)'),
+(321, '25168', 'Chaguani', 'Cundinamarca', 'Chaguani (Cundinamarca)'),
+(322, '25175', 'Chia', 'Cundinamarca', 'Chia (Cundinamarca)'),
+(323, '25178', 'Chipaque', 'Cundinamarca', 'Chipaque (Cundinamarca)'),
+(324, '25181', 'Choachi', 'Cundinamarca', 'Choachi (Cundinamarca)'),
+(325, '25183', 'Chocónta', 'Cundinamarca', 'Chocónta (Cundinamarca)'),
+(326, '25200', 'Cogua', 'Cundinamarca', 'Cogua (Cundinamarca)'),
+(327, '25214', 'Cota', 'Cundinamarca', 'Cota (Cundinamarca)'),
+(328, '25224', 'Cucunuba', 'Cundinamarca', 'Cucunuba (Cundinamarca)'),
+(329, '25245', 'El Colegio', 'Cundinamarca', 'El Colegio (Cundinamarca)'),
+(330, '25258', 'El Peñon', 'Cundinamarca', 'El Peñon (Cundinamarca)'),
+(331, '25260', 'El Rosal', 'Cundinamarca', 'El Rosal (Cundinamarca)'),
+(332, '25269', 'Facatativa', 'Cundinamarca', 'Facatativa (Cundinamarca)'),
+(333, '25279', 'Fomeque', 'Cundinamarca', 'Fomeque (Cundinamarca)'),
+(334, '25281', 'Fosca', 'Cundinamarca', 'Fosca (Cundinamarca)'),
+(335, '25286', 'Funza', 'Cundinamarca', 'Funza (Cundinamarca)'),
+(336, '25288', 'Fuquene', 'Cundinamarca', 'Fuquene (Cundinamarca)'),
+(337, '25290', 'Fusagasuga', 'Cundinamarca', 'Fusagasuga (Cundinamarca)'),
+(338, '25293', 'Gachala', 'Cundinamarca', 'Gachala (Cundinamarca)'),
+(339, '25295', 'Gachancipa', 'Cundinamarca', 'Gachancipa (Cundinamarca)'),
+(340, '25297', 'Gacheta', 'Cundinamarca', 'Gacheta (Cundinamarca)'),
+(341, '25299', 'Gama', 'Cundinamarca', 'Gama (Cundinamarca)'),
+(342, '25307', 'Girardot', 'Cundinamarca', 'Girardot (Cundinamarca)'),
+(343, '25312', 'Granada', 'Cundinamarca', 'Granada (Cundinamarca)'),
+(344, '25317', 'Guacheta', 'Cundinamarca', 'Guacheta (Cundinamarca)'),
+(345, '25320', 'Guaduas', 'Cundinamarca', 'Guaduas (Cundinamarca)'),
+(346, '25322', 'Guasca', 'Cundinamarca', 'Guasca (Cundinamarca)'),
+(347, '25324', 'Guataqui', 'Cundinamarca', 'Guataqui (Cundinamarca)'),
+(348, '25326', 'Guatavita', 'Cundinamarca', 'Guatavita (Cundinamarca)'),
+(349, '25328', 'Guayabal De Siquima', 'Cundinamarca', 'Guayabal De Siquima (Cundinamarca)'),
+(350, '25335', 'Guayabetal', 'Cundinamarca', 'Guayabetal (Cundinamarca)'),
+(351, '25339', 'Gutierrez', 'Cundinamarca', 'Gutierrez (Cundinamarca)'),
+(352, '25368', 'Jerusalen', 'Cundinamarca', 'Jerusalen (Cundinamarca)'),
+(353, '25372', 'Junin', 'Cundinamarca', 'Junin (Cundinamarca)'),
+(354, '25377', 'La Calera', 'Cundinamarca', 'La Calera (Cundinamarca)'),
+(355, '25386', 'La Mesa', 'Cundinamarca', 'La Mesa (Cundinamarca)'),
+(356, '25394', 'La Palma', 'Cundinamarca', 'La Palma (Cundinamarca)'),
+(357, '25398', 'La Peña', 'Cundinamarca', 'La Peña (Cundinamarca)'),
+(358, '25402', 'La Vega', 'Cundinamarca', 'La Vega (Cundinamarca)'),
+(359, '25407', 'Lenguazaque', 'Cundinamarca', 'Lenguazaque (Cundinamarca)'),
+(360, '25426', 'Macheta', 'Cundinamarca', 'Macheta (Cundinamarca)'),
+(361, '25430', 'Madrid', 'Cundinamarca', 'Madrid (Cundinamarca)'),
+(362, '25436', 'Manta', 'Cundinamarca', 'Manta (Cundinamarca)'),
+(363, '25438', 'Medina', 'Cundinamarca', 'Medina (Cundinamarca)'),
+(364, '25473', 'Mosquera', 'Cundinamarca', 'Mosquera (Cundinamarca)'),
+(365, '25483', 'Nariño', 'Cundinamarca', 'Nariño (Cundinamarca)'),
+(366, '25486', 'Nemocon', 'Cundinamarca', 'Nemocon (Cundinamarca)'),
+(367, '25488', 'Nilo', 'Cundinamarca', 'Nilo (Cundinamarca)'),
+(368, '25489', 'Nimaima', 'Cundinamarca', 'Nimaima (Cundinamarca)'),
+(369, '25491', 'Nocaima', 'Cundinamarca', 'Nocaima (Cundinamarca)'),
+(370, '25506', 'Venecia', 'Cundinamarca', 'Venecia (Cundinamarca)'),
+(371, '25513', 'Pacho', 'Cundinamarca', 'Pacho (Cundinamarca)'),
+(372, '25518', 'Paime', 'Cundinamarca', 'Paime (Cundinamarca)'),
+(373, '25524', 'Pandi', 'Cundinamarca', 'Pandi (Cundinamarca)'),
+(374, '25530', 'Paratebueno', 'Cundinamarca', 'Paratebueno (Cundinamarca)'),
+(375, '25535', 'Pasca', 'Cundinamarca', 'Pasca (Cundinamarca)'),
+(376, '25572', 'Puerto Salgar', 'Cundinamarca', 'Puerto Salgar (Cundinamarca)'),
+(377, '25580', 'Puli', 'Cundinamarca', 'Puli (Cundinamarca)'),
+(378, '25592', 'Quebradanegra', 'Cundinamarca', 'Quebradanegra (Cundinamarca)'),
+(379, '25594', 'Quetame', 'Cundinamarca', 'Quetame (Cundinamarca)'),
+(380, '25596', 'Quipile', 'Cundinamarca', 'Quipile (Cundinamarca)'),
+(381, '25599', 'Apulo', 'Cundinamarca', 'Apulo (Cundinamarca)'),
+(382, '25612', 'Ricaurte', 'Cundinamarca', 'Ricaurte (Cundinamarca)'),
+(383, '25645', 'San Antonio Del Tequendama', 'Cundinamarca', 'San Antonio Del Tequendama (Cundinamarca)'),
+(384, '25649', 'San Bernardo', 'Cundinamarca', 'San Bernardo (Cundinamarca)'),
+(385, '25653', 'San Cayetano', 'Cundinamarca', 'San Cayetano (Cundinamarca)'),
+(386, '25658', 'San Francisco', 'Cundinamarca', 'San Francisco (Cundinamarca)'),
+(387, '25662', 'San Juan De Rio Seco', 'Cundinamarca', 'San Juan De Rio Seco (Cundinamarca)'),
+(388, '25718', 'Sasaima', 'Cundinamarca', 'Sasaima (Cundinamarca)'),
+(389, '25736', 'Sesquile', 'Cundinamarca', 'Sesquile (Cundinamarca)'),
+(390, '25740', 'Sibate', 'Cundinamarca', 'Sibate (Cundinamarca)'),
+(391, '25743', 'Silvania', 'Cundinamarca', 'Silvania (Cundinamarca)'),
+(392, '25745', 'Simijaca', 'Cundinamarca', 'Simijaca (Cundinamarca)'),
+(393, '25754', 'Soacha', 'Cundinamarca', 'Soacha (Cundinamarca)'),
+(394, '25758', 'Sopo', 'Cundinamarca', 'Sopo (Cundinamarca)'),
+(395, '25769', 'Subachoque', 'Cundinamarca', 'Subachoque (Cundinamarca)'),
+(396, '25772', 'Suesca', 'Cundinamarca', 'Suesca (Cundinamarca)'),
+(397, '25777', 'Supata', 'Cundinamarca', 'Supata (Cundinamarca)'),
+(398, '25779', 'Susa', 'Cundinamarca', 'Susa (Cundinamarca)'),
+(399, '25781', 'Sutatausa', 'Cundinamarca', 'Sutatausa (Cundinamarca)'),
+(400, '25785', 'Tabio', 'Cundinamarca', 'Tabio (Cundinamarca)'),
+(401, '25793', 'Tausa', 'Cundinamarca', 'Tausa (Cundinamarca)'),
+(402, '25797', 'Tena', 'Cundinamarca', 'Tena (Cundinamarca)'),
+(403, '25799', 'Tenjo', 'Cundinamarca', 'Tenjo (Cundinamarca)'),
+(404, '25805', 'Tibacuy', 'Cundinamarca', 'Tibacuy (Cundinamarca)'),
+(405, '25807', 'Tibirita', 'Cundinamarca', 'Tibirita (Cundinamarca)'),
+(406, '25815', 'Tocaima', 'Cundinamarca', 'Tocaima (Cundinamarca)'),
+(407, '25817', 'Tocancipa', 'Cundinamarca', 'Tocancipa (Cundinamarca)'),
+(408, '25823', 'Topaipi', 'Cundinamarca', 'Topaipi (Cundinamarca)'),
+(409, '25839', 'Ubala', 'Cundinamarca', 'Ubala (Cundinamarca)'),
+(410, '25841', 'Ubaque', 'Cundinamarca', 'Ubaque (Cundinamarca)'),
+(411, '25843', 'Villa De San Diego De Ubate', 'Cundinamarca', 'Villa De San Diego De Ubate (Cundinamarca)'),
+(412, '25845', 'Une', 'Cundinamarca', 'Une (Cundinamarca)'),
+(413, '25851', 'Utica', 'Cundinamarca', 'Utica (Cundinamarca)'),
+(414, '25862', 'Vergara', 'Cundinamarca', 'Vergara (Cundinamarca)'),
+(415, '25867', 'Viani', 'Cundinamarca', 'Viani (Cundinamarca)'),
+(416, '25871', 'Villagomez', 'Cundinamarca', 'Villagomez (Cundinamarca)'),
+(417, '25873', 'Villapinzon', 'Cundinamarca', 'Villapinzon (Cundinamarca)'),
+(418, '25875', 'Villeta', 'Cundinamarca', 'Villeta (Cundinamarca)'),
+(419, '25878', 'Viota', 'Cundinamarca', 'Viota (Cundinamarca)'),
+(420, '25885', 'Yacopi', 'Cundinamarca', 'Yacopi (Cundinamarca)'),
+(421, '25898', 'Zipacon', 'Cundinamarca', 'Zipacon (Cundinamarca)'),
+(422, '25899', 'Zipaquira', 'Cundinamarca', 'Zipaquira (Cundinamarca)'),
+(423, '27001', 'Quibdo', 'Chocó', 'Quibdo (Chocó)'),
+(424, '27006', 'Acandi', 'Chocó', 'Acandi (Chocó)'),
+(425, '27025', 'Alto Baudo', 'Chocó', 'Alto Baudo (Chocó)'),
+(426, '27050', 'Atrato', 'Chocó', 'Atrato (Chocó)'),
+(427, '27073', 'Bagado', 'Chocó', 'Bagado (Chocó)'),
+(428, '27075', 'Bahia Solano', 'Chocó', 'Bahia Solano (Chocó)'),
+(429, '27077', 'Bajo Baudo', 'Chocó', 'Bajo Baudo (Chocó)'),
+(430, '27086', 'Belen De Bajira', 'Chocó', 'Belen De Bajira (Chocó)'),
+(431, '27099', 'Bojaya', 'Chocó', 'Bojaya (Chocó)'),
+(432, '27135', 'El Canton Del San Pablo', 'Chocó', 'El Canton Del San Pablo (Chocó)'),
+(433, '27150', 'Carmen Del Darien', 'Chocó', 'Carmen Del Darien (Chocó)'),
+(434, '27160', 'Certegui', 'Chocó', 'Certegui (Chocó)'),
+(435, '27205', 'Condoto', 'Chocó', 'Condoto (Chocó)'),
+(436, '27245', 'El Carmen De Atrato', 'Chocó', 'El Carmen De Atrato (Chocó)'),
+(437, '27250', 'El Litoral Del San Juan', 'Chocó', 'El Litoral Del San Juan (Chocó)'),
+(438, '27361', 'Istmina', 'Chocó', 'Istmina (Chocó)'),
+(439, '27372', 'Jurado', 'Chocó', 'Jurado (Chocó)'),
+(440, '27413', 'Lloro', 'Chocó', 'Lloro (Chocó)'),
+(441, '27425', 'Medio Atrato', 'Chocó', 'Medio Atrato (Chocó)'),
+(442, '27430', 'Medio Baudo', 'Chocó', 'Medio Baudo (Chocó)'),
+(443, '27450', 'Medio San Juan', 'Chocó', 'Medio San Juan (Chocó)'),
+(444, '27491', 'Novita', 'Chocó', 'Novita (Chocó)'),
+(445, '27495', 'Nuqui', 'Chocó', 'Nuqui (Chocó)'),
+(446, '27580', 'Rio Iro', 'Chocó', 'Rio Iro (Chocó)'),
+(447, '27600', 'Rio Quito', 'Chocó', 'Rio Quito (Chocó)'),
+(448, '27615', 'Riosucio', 'Chocó', 'Riosucio (Chocó)'),
+(449, '27660', 'San Jose Del Palmar', 'Chocó', 'San Jose Del Palmar (Chocó)'),
+(450, '27745', 'Sipi', 'Chocó', 'Sipi (Chocó)'),
+(451, '27787', 'Tado', 'Chocó', 'Tado (Chocó)'),
+(452, '27800', 'Unguia', 'Chocó', 'Unguia (Chocó)'),
+(453, '27810', 'Union Panamericana', 'Chocó', 'Union Panamericana (Chocó)'),
+(454, '41001', 'Neiva', 'Huila', 'Neiva (Huila)'),
+(455, '41006', 'Acevedo', 'Huila', 'Acevedo (Huila)'),
+(456, '41013', 'Agrado', 'Huila', 'Agrado (Huila)'),
+(457, '41016', 'Aipe', 'Huila', 'Aipe (Huila)'),
+(458, '41020', 'Algeciras', 'Huila', 'Algeciras (Huila)'),
+(459, '41026', 'Altamira', 'Huila', 'Altamira (Huila)'),
+(460, '41078', 'Baraya', 'Huila', 'Baraya (Huila)'),
+(461, '41132', 'Campoalegre', 'Huila', 'Campoalegre (Huila)'),
+(462, '41206', 'Colombia', 'Huila', 'Colombia (Huila)'),
+(463, '41244', 'Elias', 'Huila', 'Elias (Huila)'),
+(464, '41298', 'Garzon', 'Huila', 'Garzon (Huila)'),
+(465, '41306', 'Gigante', 'Huila', 'Gigante (Huila)'),
+(466, '41319', 'Guadalupe', 'Huila', 'Guadalupe (Huila)'),
+(467, '41349', 'Hobo', 'Huila', 'Hobo (Huila)'),
+(468, '41357', 'Iquira', 'Huila', 'Iquira (Huila)'),
+(469, '41359', 'Isnos', 'Huila', 'Isnos (Huila)'),
+(470, '41378', 'La Argentina', 'Huila', 'La Argentina (Huila)'),
+(471, '41396', 'La Plata', 'Huila', 'La Plata (Huila)'),
+(472, '41483', 'Nataga', 'Huila', 'Nataga (Huila)'),
+(473, '41503', 'Oporapa', 'Huila', 'Oporapa (Huila)'),
+(474, '41518', 'Paicol', 'Huila', 'Paicol (Huila)'),
+(475, '41524', 'Palermo', 'Huila', 'Palermo (Huila)'),
+(476, '41530', 'Palestina', 'Huila', 'Palestina (Huila)'),
+(477, '41548', 'Pital', 'Huila', 'Pital (Huila)'),
+(478, '41551', 'Pitalito', 'Huila', 'Pitalito (Huila)'),
+(479, '41615', 'Rivera', 'Huila', 'Rivera (Huila)'),
+(480, '41660', 'Saladoblanco', 'Huila', 'Saladoblanco (Huila)'),
+(481, '41668', 'San Agustin', 'Huila', 'San Agustin (Huila)'),
+(482, '41676', 'Santa Maria', 'Huila', 'Santa Maria (Huila)'),
+(483, '41770', 'Suaza', 'Huila', 'Suaza (Huila)'),
+(484, '41791', 'Tarqui', 'Huila', 'Tarqui (Huila)'),
+(485, '41797', 'Tesalia', 'Huila', 'Tesalia (Huila)'),
+(486, '41799', 'Tello', 'Huila', 'Tello (Huila)'),
+(487, '41801', 'Teruel', 'Huila', 'Teruel (Huila)'),
+(488, '41807', 'Timana', 'Huila', 'Timana (Huila)'),
+(489, '41872', 'Villavieja', 'Huila', 'Villavieja (Huila)'),
+(490, '41885', 'Yaguara', 'Huila', 'Yaguara (Huila)'),
+(491, '44001', 'Riohacha', 'La Guajira', 'Riohacha (La Guajira)'),
+(492, '44035', 'Albania', 'La Guajira', 'Albania (La Guajira)'),
+(493, '44078', 'Barrancas', 'La Guajira', 'Barrancas (La Guajira)'),
+(494, '44090', 'Dibulla', 'La Guajira', 'Dibulla (La Guajira)'),
+(495, '44098', 'Distraccion', 'La Guajira', 'Distraccion (La Guajira)'),
+(496, '44110', 'El Molino', 'La Guajira', 'El Molino (La Guajira)'),
+(497, '44279', 'Fonseca', 'La Guajira', 'Fonseca (La Guajira)'),
+(498, '44378', 'Hatonuevo', 'La Guajira', 'Hatonuevo (La Guajira)'),
+(499, '44420', 'La Jagua Del Pilar', 'La Guajira', 'La Jagua Del Pilar (La Guajira)'),
+(500, '44430', 'Maicao', 'La Guajira', 'Maicao (La Guajira)'),
+(501, '44560', 'Manaure', 'La Guajira', 'Manaure (La Guajira)'),
+(502, '44650', 'San Juan Del Cesar', 'La Guajira', 'San Juan Del Cesar (La Guajira)'),
+(503, '44847', 'Uribia', 'La Guajira', 'Uribia (La Guajira)'),
+(504, '44855', 'Urumita', 'La Guajira', 'Urumita (La Guajira)'),
+(505, '44874', 'Villanueva', 'La Guajira', 'Villanueva (La Guajira)'),
+(506, '47001', 'Santa Marta', 'Magdalena', 'Santa Marta (Magdalena)'),
+(507, '47030', 'Algarrobo', 'Magdalena', 'Algarrobo (Magdalena)'),
+(508, '47053', 'Aracataca', 'Magdalena', 'Aracataca (Magdalena)'),
+(509, '47058', 'Ariguani', 'Magdalena', 'Ariguani (Magdalena)'),
+(510, '47161', 'Cerro San Antonio', 'Magdalena', 'Cerro San Antonio (Magdalena)'),
+(511, '47170', 'Chibolo', 'Magdalena', 'Chibolo (Magdalena)'),
+(512, '47189', 'Cienaga', 'Magdalena', 'Cienaga (Magdalena)'),
+(513, '47205', 'Concordia', 'Magdalena', 'Concordia (Magdalena)'),
+(514, '47245', 'El Banco', 'Magdalena', 'El Banco (Magdalena)'),
+(515, '47258', 'El Piñon', 'Magdalena', 'El Piñon (Magdalena)'),
+(516, '47268', 'El Reten', 'Magdalena', 'El Reten (Magdalena)'),
+(517, '47288', 'Fundacion', 'Magdalena', 'Fundacion (Magdalena)'),
+(518, '47318', 'Guamal', 'Magdalena', 'Guamal (Magdalena)'),
+(519, '47460', 'Nueva Granada', 'Magdalena', 'Nueva Granada (Magdalena)'),
+(520, '47541', 'Pedraza', 'Magdalena', 'Pedraza (Magdalena)'),
+(521, '47545', 'Pijiño Del Carmen', 'Magdalena', 'Pijiño Del Carmen (Magdalena)'),
+(522, '47551', 'Pivijay', 'Magdalena', 'Pivijay (Magdalena)'),
+(523, '47555', 'Plato', 'Magdalena', 'Plato (Magdalena)'),
+(524, '47570', 'Puebloviejo', 'Magdalena', 'Puebloviejo (Magdalena)'),
+(525, '47605', 'Remolino', 'Magdalena', 'Remolino (Magdalena)'),
+(526, '47660', 'Sabanas De San Angel', 'Magdalena', 'Sabanas De San Angel (Magdalena)'),
+(527, '47675', 'Salamina', 'Magdalena', 'Salamina (Magdalena)'),
+(528, '47692', 'San Sebastian De Buenavista', 'Magdalena', 'San Sebastian De Buenavista (Magdalena)'),
+(529, '47703', 'San Zenon', 'Magdalena', 'San Zenon (Magdalena)'),
+(530, '47707', 'Santa Ana', 'Magdalena', 'Santa Ana (Magdalena)'),
+(531, '47720', 'Santa Barbara De Pinto', 'Magdalena', 'Santa Barbara De Pinto (Magdalena)'),
+(532, '47745', 'Sitionuevo', 'Magdalena', 'Sitionuevo (Magdalena)'),
+(533, '47798', 'Tenerife', 'Magdalena', 'Tenerife (Magdalena)'),
+(534, '47960', 'Zapayan', 'Magdalena', 'Zapayan (Magdalena)'),
+(535, '47980', 'Zona Bananera', 'Magdalena', 'Zona Bananera (Magdalena)'),
+(536, '50001', 'Villavicencio', 'Meta', 'Villavicencio (Meta)'),
+(537, '50006', 'Acacias', 'Meta', 'Acacias (Meta)'),
+(538, '5001', 'Medellin', 'Antioquia', 'Medellin (Antioquia)'),
+(539, '5002', 'Abejorral', 'Antioquia', 'Abejorral (Antioquia)'),
+(540, '5004', 'Abriaqui', 'Antioquia', 'Abriaqui (Antioquia)'),
+(541, '50110', 'Barranca De Upia', 'Meta', 'Barranca De Upia (Meta)'),
+(542, '50124', 'Cabuyaro', 'Meta', 'Cabuyaro (Meta)'),
+(543, '50150', 'Castilla La Nueva', 'Meta', 'Castilla La Nueva (Meta)'),
+(544, '5021', 'Alejandria', 'Antioquia', 'Alejandria (Antioquia)'),
+(545, '50223', 'Cubarral', 'Meta', 'Cubarral (Meta)'),
+(546, '50226', 'Cumaral', 'Meta', 'Cumaral (Meta)'),
+(547, '50245', 'El Calvario', 'Meta', 'El Calvario (Meta)'),
+(548, '50251', 'El Castillo', 'Meta', 'El Castillo (Meta)'),
+(549, '50270', 'El Dorado', 'Meta', 'El Dorado (Meta)'),
+(550, '50287', 'Fuente De Oro', 'Meta', 'Fuente De Oro (Meta)'),
+(551, '5030', 'Amaga', 'Antioquia', 'Amaga (Antioquia)'),
+(552, '5031', 'Amalfi', 'Antioquia', 'Amalfi (Antioquia)'),
+(553, '50313', 'Granada', 'Meta', 'Granada (Meta)'),
+(554, '50318', 'Guamal', 'Meta', 'Guamal (Meta)'),
+(555, '50325', 'Mapiripan', 'Meta', 'Mapiripan (Meta)'),
+(556, '50330', 'Mesetas', 'Meta', 'Mesetas (Meta)'),
+(557, '5034', 'Andes', 'Antioquia', 'Andes (Antioquia)'),
+(558, '50350', 'La Macarena', 'Meta', 'La Macarena (Meta)'),
+(559, '5036', 'Angelopolis', 'Antioquia', 'Angelopolis (Antioquia)'),
+(560, '50370', 'Uribe', 'Meta', 'Uribe (Meta)'),
+(561, '5038', 'Angostura', 'Antioquia', 'Angostura (Antioquia)'),
+(562, '5040', 'Anori', 'Antioquia', 'Anori (Antioquia)'),
+(563, '50400', 'Lejanias', 'Meta', 'Lejanias (Meta)'),
+(564, '5042', 'Santafe De Antioquia', 'Antioquia', 'Santafe De Antioquia (Antioquia)'),
+(565, '5044', 'Anza', 'Antioquia', 'Anza (Antioquia)'),
+(566, '5045', 'Apartado', 'Antioquia', 'Apartado (Antioquia)'),
+(567, '50450', 'Puerto Concordia', 'Meta', 'Puerto Concordia (Meta)'),
+(568, '5051', 'Arboletes', 'Antioquia', 'Arboletes (Antioquia)'),
+(569, '5055', 'Argelia', 'Antioquia', 'Argelia (Antioquia)'),
+(570, '50568', 'Puerto Gaitan', 'Meta', 'Puerto Gaitan (Meta)'),
+(571, '50573', 'Puerto Lopez', 'Meta', 'Puerto Lopez (Meta)'),
+(572, '50577', 'Puerto Lleras', 'Meta', 'Puerto Lleras (Meta)'),
+(573, '5059', 'Armenia', 'Antioquia', 'Armenia (Antioquia)'),
+(574, '50590', 'Puerto Rico', 'Meta', 'Puerto Rico (Meta)'),
+(575, '50606', 'Restrepo', 'Meta', 'Restrepo (Meta)'),
+(576, '50680', 'San Carlos De Guaroa', 'Meta', 'San Carlos De Guaroa (Meta)'),
+(577, '50683', 'San Juan De Arama', 'Meta', 'San Juan De Arama (Meta)'),
+(578, '50686', 'San Juanito', 'Meta', 'San Juanito (Meta)'),
+(579, '50689', 'San Martin', 'Meta', 'San Martin (Meta)'),
+(580, '50711', 'Vistahermosa', 'Meta', 'Vistahermosa (Meta)'),
+(581, '5079', 'Barbosa', 'Antioquia', 'Barbosa (Antioquia)'),
+(582, '5086', 'Belmira', 'Antioquia', 'Belmira (Antioquia)'),
+(583, '5088', 'Bello', 'Antioquia', 'Bello (Antioquia)'),
+(584, '5091', 'Betania', 'Antioquia', 'Betania (Antioquia)'),
+(585, '5093', 'Betulia', 'Antioquia', 'Betulia (Antioquia)'),
+(586, '5101', 'Ciudad Bolivar', 'Antioquia', 'Ciudad Bolivar (Antioquia)'),
+(587, '5107', 'Briceño', 'Antioquia', 'Briceño (Antioquia)'),
+(588, '5113', 'Buritica', 'Antioquia', 'Buritica (Antioquia)'),
+(589, '5120', 'Caceres', 'Antioquia', 'Caceres (Antioquia)'),
+(590, '5125', 'Caicedo', 'Antioquia', 'Caicedo (Antioquia)'),
+(591, '5134', 'Campamento', 'Antioquia', 'Campamento (Antioquia)'),
+(592, '5138', 'Cañasgordas', 'Antioquia', 'Cañasgordas (Antioquia)'),
+(593, '5142', 'Caracoli', 'Antioquia', 'Caracoli (Antioquia)'),
+(594, '5145', 'Caramanta', 'Antioquia', 'Caramanta (Antioquia)'),
+(595, '5147', 'Carepa', 'Antioquia', 'Carepa (Antioquia)'),
+(596, '5148', 'El Carmen De Viboral', 'Antioquia', 'El Carmen De Viboral (Antioquia)'),
+(597, '5150', 'Carolina', 'Antioquia', 'Carolina (Antioquia)'),
+(598, '5154', 'Caucasia', 'Antioquia', 'Caucasia (Antioquia)'),
+(599, '5172', 'Chigorodo', 'Antioquia', 'Chigorodo (Antioquia)'),
+(600, '5190', 'Cisneros', 'Antioquia', 'Cisneros (Antioquia)'),
+(601, '5197', 'Cocorna', 'Antioquia', 'Cocorna (Antioquia)'),
+(602, '52001', 'Pasto', 'Nariño', 'Pasto (Nariño)'),
+(603, '52019', 'Alban', 'Nariño', 'Alban (Nariño)'),
+(604, '52022', 'Aldana', 'Nariño', 'Aldana (Nariño)'),
+(605, '52036', 'Ancuya', 'Nariño', 'Ancuya (Nariño)'),
+(606, '52051', 'Arboleda', 'Nariño', 'Arboleda (Nariño)'),
+(607, '5206', 'Concepcion', 'Antioquia', 'Concepcion (Antioquia)'),
+(608, '52079', 'Barbacoas', 'Nariño', 'Barbacoas (Nariño)'),
+(609, '52083', 'Belen', 'Nariño', 'Belen (Nariño)'),
+(610, '5209', 'Concordia', 'Antioquia', 'Concordia (Antioquia)'),
+(611, '52110', 'Buesaco', 'Nariño', 'Buesaco (Nariño)'),
+(612, '5212', 'Copacabana', 'Antioquia', 'Copacabana (Antioquia)'),
+(613, '52203', 'Colon', 'Nariño', 'Colon (Nariño)'),
+(614, '52207', 'Consaca', 'Nariño', 'Consaca (Nariño)'),
+(615, '52210', 'Contadero', 'Nariño', 'Contadero (Nariño)'),
+(616, '52215', 'Cordoba', 'Nariño', 'Cordoba (Nariño)'),
+(617, '52224', 'Cuaspud', 'Nariño', 'Cuaspud (Nariño)'),
+(618, '52227', 'Cumbal', 'Nariño', 'Cumbal (Nariño)'),
+(619, '52233', 'Cumbitara', 'Nariño', 'Cumbitara (Nariño)'),
+(620, '52240', 'Chachagui', 'Nariño', 'Chachagui (Nariño)'),
+(621, '52250', 'El Charco', 'Nariño', 'El Charco (Nariño)'),
+(622, '52254', 'El Peñol', 'Nariño', 'El Peñol (Nariño)'),
+(623, '52256', 'El Rosario', 'Nariño', 'El Rosario (Nariño)'),
+(624, '52258', 'El Tablon De Gomez', 'Nariño', 'El Tablon De Gomez (Nariño)'),
+(625, '52260', 'El Tambo', 'Nariño', 'El Tambo (Nariño)'),
+(626, '52287', 'Funes', 'Nariño', 'Funes (Nariño)'),
+(627, '52317', 'Guachucal', 'Nariño', 'Guachucal (Nariño)'),
+(628, '52320', 'Guaitarilla', 'Nariño', 'Guaitarilla (Nariño)'),
+(629, '52323', 'Gualmatan', 'Nariño', 'Gualmatan (Nariño)'),
+(630, '5234', 'Dabeiba', 'Antioquia', 'Dabeiba (Antioquia)'),
+(631, '52352', 'Iles', 'Nariño', 'Iles (Nariño)'),
+(632, '52354', 'Imues', 'Nariño', 'Imues (Nariño)'),
+(633, '52356', 'Ipiales', 'Nariño', 'Ipiales (Nariño)'),
+(634, '5237', 'Don Matias', 'Antioquia', 'Don Matias (Antioquia)'),
+(635, '52378', 'La Cruz', 'Nariño', 'La Cruz (Nariño)'),
+(636, '52381', 'La Florida', 'Nariño', 'La Florida (Nariño)'),
+(637, '52385', 'La Llanada', 'Nariño', 'La Llanada (Nariño)'),
+(638, '52390', 'La Tola', 'Nariño', 'La Tola (Nariño)'),
+(639, '52399', 'La Union', 'Nariño', 'La Union (Nariño)'),
+(640, '5240', 'Ebejico', 'Antioquia', 'Ebejico (Antioquia)'),
+(641, '52405', 'Leiva', 'Nariño', 'Leiva (Nariño)'),
+(642, '52411', 'Linares', 'Nariño', 'Linares (Nariño)'),
+(643, '52418', 'Los Andes', 'Nariño', 'Los Andes (Nariño)'),
+(644, '52427', 'Magui', 'Nariño', 'Magui (Nariño)'),
+(645, '52435', 'Mallama', 'Nariño', 'Mallama (Nariño)'),
+(646, '52473', 'Mosquera', 'Nariño', 'Mosquera (Nariño)'),
+(647, '52480', 'Nari?o', 'Nariño', 'Nari?o (Nariño)'),
+(648, '52490', 'Olaya Herrera', 'Nariño', 'Olaya Herrera (Nariño)'),
+(649, '5250', 'El Bagre', 'Antioquia', 'El Bagre (Antioquia)'),
+(650, '52506', 'Ospina', 'Nariño', 'Ospina (Nariño)'),
+(651, '52520', 'Francisco Pizarro', 'Nariño', 'Francisco Pizarro (Nariño)'),
+(652, '52540', 'Policarpa', 'Nariño', 'Policarpa (Nariño)'),
+(653, '52560', 'Potosi', 'Nariño', 'Potosi (Nariño)'),
+(654, '52565', 'Providencia', 'Nariño', 'Providencia (Nariño)'),
+(655, '52573', 'Puerres', 'Nariño', 'Puerres (Nariño)'),
+(656, '52585', 'Pupiales', 'Nariño', 'Pupiales (Nariño)'),
+(657, '52612', 'Ricaurte', 'Nariño', 'Ricaurte (Nariño)'),
+(658, '52621', 'Roberto Payan', 'Nariño', 'Roberto Payan (Nariño)'),
+(659, '5264', 'Entrerrios', 'Antioquia', 'Entrerrios (Antioquia)'),
+(660, '5266', 'Envigado', 'Antioquia', 'Envigado (Antioquia)'),
+(661, '52678', 'Samaniego', 'Nariño', 'Samaniego (Nariño)'),
+(662, '52683', 'Sandona', 'Nariño', 'Sandona (Nariño)'),
+(663, '52685', 'San Bernardo', 'Nariño', 'San Bernardo (Nariño)'),
+(664, '52687', 'San Lorenzo', 'Nariño', 'San Lorenzo (Nariño)'),
+(665, '52693', 'San Pablo', 'Nariño', 'San Pablo (Nariño)'),
+(666, '52694', 'San Pedro De Cartago', 'Nariño', 'San Pedro De Cartago (Nariño)'),
+(667, '52696', 'Santa Barbara', 'Nariño', 'Santa Barbara (Nariño)'),
+(668, '52699', 'Santacruz', 'Nariño', 'Santacruz (Nariño)'),
+(669, '52720', 'Sapuyes', 'Nariño', 'Sapuyes (Nariño)'),
+(670, '52786', 'Taminango', 'Nariño', 'Taminango (Nariño)'),
+(671, '52788', 'Tangua', 'Nariño', 'Tangua (Nariño)'),
+(672, '5282', 'Fredonia', 'Antioquia', 'Fredonia (Antioquia)'),
+(673, '52835', 'Tumaco', 'Nariño', 'Tumaco (Nariño)'),
+(674, '52838', 'Tuquerres', 'Nariño', 'Tuquerres (Nariño)'),
+(675, '5284', 'Frontino', 'Antioquia', 'Frontino (Antioquia)'),
+(676, '52885', 'Yacuanquer', 'Nariño', 'Yacuanquer (Nariño)'),
+(677, '5306', 'Giraldo', 'Antioquia', 'Giraldo (Antioquia)'),
+(678, '5308', 'Girardota', 'Antioquia', 'Girardota (Antioquia)'),
+(679, '5310', 'Gomez Plata', 'Antioquia', 'Gomez Plata (Antioquia)'),
+(680, '5313', 'Granada', 'Antioquia', 'Granada (Antioquia)'),
+(681, '5315', 'Guadalupe', 'Antioquia', 'Guadalupe (Antioquia)'),
+(682, '5318', 'Guarne', 'Antioquia', 'Guarne (Antioquia)'),
+(683, '5321', 'Guatape', 'Antioquia', 'Guatape (Antioquia)'),
+(684, '5347', 'Heliconia', 'Antioquia', 'Heliconia (Antioquia)'),
+(685, '5353', 'Hispania', 'Antioquia', 'Hispania (Antioquia)'),
+(686, '5360', 'Itagui', 'Antioquia', 'Itagui (Antioquia)'),
+(687, '5361', 'Ituango', 'Antioquia', 'Ituango (Antioquia)'),
+(688, '5364', 'Jardin', 'Antioquia', 'Jardin (Antioquia)'),
+(689, '5368', 'Jerico', 'Antioquia', 'Jerico (Antioquia)'),
+(690, '5376', 'La Ceja', 'Antioquia', 'La Ceja (Antioquia)'),
+(691, '5380', 'La Estrella', 'Antioquia', 'La Estrella (Antioquia)'),
+(692, '5390', 'La Pintada', 'Antioquia', 'La Pintada (Antioquia)'),
+(693, '5400', 'La Union', 'Antioquia', 'La Union (Antioquia)'),
+(694, '54001', 'Cucuta', 'Norte de Santander', 'Cucuta (Norte de Santander)'),
+(695, '54003', 'Abrego', 'Norte de Santander', 'Abrego (Norte de Santander)'),
+(696, '54051', 'Arboledas', 'Norte de Santander', 'Arboledas (Norte de Santander)'),
+(697, '54099', 'Bochalema', 'Norte de Santander', 'Bochalema (Norte de Santander)'),
+(698, '54109', 'Bucarasica', 'Norte de Santander', 'Bucarasica (Norte de Santander)'),
+(699, '5411', 'Liborina', 'Antioquia', 'Liborina (Antioquia)'),
+(700, '54125', 'Cacota', 'Norte de Santander', 'Cacota (Norte de Santander)'),
+(701, '54128', 'Cachira', 'Norte de Santander', 'Cachira (Norte de Santander)'),
+(702, '54172', 'Chinacota', 'Norte de Santander', 'Chinacota (Norte de Santander)'),
+(703, '54174', 'Chitaga', 'Norte de Santander', 'Chitaga (Norte de Santander)'),
+(704, '54206', 'Convencion', 'Norte de Santander', 'Convencion (Norte de Santander)'),
+(705, '54223', 'Cucutilla', 'Norte de Santander', 'Cucutilla (Norte de Santander)'),
+(706, '54239', 'Durania', 'Norte de Santander', 'Durania (Norte de Santander)'),
+(707, '54245', 'El Carmen', 'Norte de Santander', 'El Carmen (Norte de Santander)'),
+(708, '5425', 'Maceo', 'Antioquia', 'Maceo (Antioquia)'),
+(709, '54250', 'El Tarra', 'Norte de Santander', 'El Tarra (Norte de Santander)'),
+(710, '54261', 'El Zulia', 'Norte de Santander', 'El Zulia (Norte de Santander)'),
+(711, '54313', 'Gramalote', 'Norte de Santander', 'Gramalote (Norte de Santander)'),
+(712, '54344', 'Hacari', 'Norte de Santander', 'Hacari (Norte de Santander)'),
+(713, '54347', 'Herran', 'Norte de Santander', 'Herran (Norte de Santander)'),
+(714, '54377', 'Labateca', 'Norte de Santander', 'Labateca (Norte de Santander)'),
+(715, '54385', 'La Esperanza', 'Norte de Santander', 'La Esperanza (Norte de Santander)'),
+(716, '54398', 'La Playa', 'Norte de Santander', 'La Playa (Norte de Santander)'),
+(717, '5440', 'Marinilla', 'Antioquia', 'Marinilla (Antioquia)'),
+(718, '54405', 'Los Patios', 'Norte de Santander', 'Los Patios (Norte de Santander)'),
+(719, '54418', 'Lourdes', 'Norte de Santander', 'Lourdes (Norte de Santander)'),
+(720, '54480', 'Mutiscua', 'Norte de Santander', 'Mutiscua (Norte de Santander)'),
+(721, '54498', 'Ocaña', 'Norte de Santander', 'Ocaña (Norte de Santander)'),
+(722, '54518', 'Pamplona', 'Norte de Santander', 'Pamplona (Norte de Santander)'),
+(723, '54520', 'Pamplonita', 'Norte de Santander', 'Pamplonita (Norte de Santander)'),
+(724, '54553', 'Puerto Santander', 'Norte de Santander', 'Puerto Santander (Norte de Santander)'),
+(725, '54599', 'Ragonvalia', 'Norte de Santander', 'Ragonvalia (Norte de Santander)'),
+(726, '54660', 'Salazar', 'Norte de Santander', 'Salazar (Norte de Santander)'),
+(727, '5467', 'Montebello', 'Antioquia', 'Montebello (Antioquia)'),
+(728, '54670', 'San Calixto', 'Norte de Santander', 'San Calixto (Norte de Santander)'),
+(729, '54673', 'San Cayetano', 'Norte de Santander', 'San Cayetano (Norte de Santander)'),
+(730, '54680', 'Santiago', 'Norte de Santander', 'Santiago (Norte de Santander)'),
+(731, '54720', 'Sardinata', 'Norte de Santander', 'Sardinata (Norte de Santander)'),
+(732, '54743', 'Silos', 'Norte de Santander', 'Silos (Norte de Santander)'),
+(733, '5475', 'Murindo', 'Antioquia', 'Murindo (Antioquia)'),
+(734, '5480', 'Mutata', 'Antioquia', 'Mutata (Antioquia)'),
+(735, '54800', 'Teorama', 'Norte de Santander', 'Teorama (Norte de Santander)'),
+(736, '54810', 'Tibu', 'Norte de Santander', 'Tibu (Norte de Santander)'),
+(737, '54820', 'Toledo', 'Norte de Santander', 'Toledo (Norte de Santander)'),
+(738, '5483', 'Nariño', 'Antioquia', 'Nariño (Antioquia)'),
+(739, '54871', 'Villa Caro', 'Norte de Santander', 'Villa Caro (Norte de Santander)'),
+(740, '54874', 'Villa Del Rosario', 'Norte de Santander', 'Villa Del Rosario (Norte de Santander)'),
+(741, '5490', 'Necocli', 'Antioquia', 'Necocli (Antioquia)'),
+(742, '5495', 'Nechi', 'Antioquia', 'Nechi (Antioquia)'),
+(743, '5501', 'Olaya', 'Antioquia', 'Olaya (Antioquia)'),
+(744, '5541', 'Peñol', 'Antioquia', 'Peñol (Antioquia)'),
+(745, '5543', 'Peque', 'Antioquia', 'Peque (Antioquia)'),
+(746, '5576', 'Pueblorrico', 'Antioquia', 'Pueblorrico (Antioquia)'),
+(747, '5579', 'Puerto Berrio', 'Antioquia', 'Puerto Berrio (Antioquia)'),
+(748, '5585', 'Puerto Nare', 'Antioquia', 'Puerto Nare (Antioquia)'),
+(749, '5591', 'Puerto Triunfo', 'Antioquia', 'Puerto Triunfo (Antioquia)'),
+(750, '5604', 'Remedios', 'Antioquia', 'Remedios (Antioquia)'),
+(751, '5607', 'Retiro', 'Antioquia', 'Retiro (Antioquia)'),
+(752, '5615', 'Rionegro', 'Antioquia', 'Rionegro (Antioquia)'),
+(753, '5628', 'Sabanalarga', 'Antioquia', 'Sabanalarga (Antioquia)'),
+(754, '5631', 'Sabaneta', 'Antioquia', 'Sabaneta (Antioquia)'),
+(755, '5642', 'Salgar', 'Antioquia', 'Salgar (Antioquia)'),
+(756, '5647', 'San Andres', 'Antioquia', 'San Andres (Antioquia)'),
+(757, '5649', 'San Carlos', 'Antioquia', 'San Carlos (Antioquia)'),
+(758, '5652', 'San Francisco', 'Antioquia', 'San Francisco (Antioquia)'),
+(759, '5656', 'San Jeronimo', 'Antioquia', 'San Jeronimo (Antioquia)'),
+(760, '5658', 'San Jose De La Montaña', 'Antioquia', 'San Jose De La Montaña (Antioquia)'),
+(761, '5659', 'San Juan De Uraba', 'Antioquia', 'San Juan De Uraba (Antioquia)'),
+(762, '5660', 'San Luis', 'Antioquia', 'San Luis (Antioquia)'),
+(763, '5664', 'San Pedro', 'Antioquia', 'San Pedro (Antioquia)'),
+(764, '5665', 'San Pedro De Uraba', 'Antioquia', 'San Pedro De Uraba (Antioquia)'),
+(765, '5667', 'San Rafael', 'Antioquia', 'San Rafael (Antioquia)'),
+(766, '5670', 'San Roque', 'Antioquia', 'San Roque (Antioquia)'),
+(767, '5674', 'San Vicente', 'Antioquia', 'San Vicente (Antioquia)'),
+(768, '5679', 'Santa Barbara', 'Antioquia', 'Santa Barbara (Antioquia)'),
+(769, '5686', 'Santa Rosa De Osos', 'Antioquia', 'Santa Rosa De Osos (Antioquia)'),
+(770, '5690', 'Santo Domingo', 'Antioquia', 'Santo Domingo (Antioquia)'),
+(771, '5697', 'El Santuario', 'Antioquia', 'El Santuario (Antioquia)'),
+(772, '5736', 'Segovia', 'Antioquia', 'Segovia (Antioquia)'),
+(773, '5756', 'Sonson', 'Antioquia', 'Sonson (Antioquia)'),
+(774, '5761', 'Sopetran', 'Antioquia', 'Sopetran (Antioquia)'),
+(775, '5789', 'Tamesis', 'Antioquia', 'Tamesis (Antioquia)'),
+(776, '5790', 'Taraza', 'Antioquia', 'Taraza (Antioquia)'),
+(777, '5792', 'Tarso', 'Antioquia', 'Tarso (Antioquia)'),
+(778, '5809', 'Titiribi', 'Antioquia', 'Titiribi (Antioquia)'),
+(779, '5819', 'Toledo', 'Antioquia', 'Toledo (Antioquia)'),
+(780, '5837', 'Turbo', 'Antioquia', 'Turbo (Antioquia)'),
+(781, '5842', 'Uramita', 'Antioquia', 'Uramita (Antioquia)'),
+(782, '5847', 'Urrao', 'Antioquia', 'Urrao (Antioquia)'),
+(783, '5854', 'Valdivia', 'Antioquia', 'Valdivia (Antioquia)'),
+(784, '5856', 'Valparaiso', 'Antioquia', 'Valparaiso (Antioquia)'),
+(785, '5858', 'Vegachi', 'Antioquia', 'Vegachi (Antioquia)'),
+(786, '5861', 'Venecia', 'Antioquia', 'Venecia (Antioquia)'),
+(787, '5873', 'Vigia Del Fuerte', 'Antioquia', 'Vigia Del Fuerte (Antioquia)'),
+(788, '5885', 'Yali', 'Antioquia', 'Yali (Antioquia)'),
+(789, '5887', 'Yarumal', 'Antioquia', 'Yarumal (Antioquia)'),
+(790, '5890', 'Yolombo', 'Antioquia', 'Yolombo (Antioquia)'),
+(791, '5893', 'Yondo', 'Antioquia', 'Yondo (Antioquia)'),
+(792, '5895', 'Zaragoza', 'Antioquia', 'Zaragoza (Antioquia)'),
+(793, '63001', 'Armenia', 'Quindio', 'Armenia (Quindio)'),
+(794, '63111', 'Buenavista', 'Quindio', 'Buenavista (Quindio)'),
+(795, '63130', 'Calarca', 'Quindio', 'Calarca (Quindio)'),
+(796, '63190', 'Circasia', 'Quindio', 'Circasia (Quindio)'),
+(797, '63212', 'Cordoba', 'Quindio', 'Cordoba (Quindio)'),
+(798, '63272', 'Filandia', 'Quindio', 'Filandia (Quindio)'),
+(799, '63302', 'Genova', 'Quindio', 'Genova (Quindio)'),
+(800, '63401', 'La Tebaida', 'Quindio', 'La Tebaida (Quindio)'),
+(801, '63470', 'Montenegro', 'Quindio', 'Montenegro (Quindio)'),
+(802, '63548', 'Pijao', 'Quindio', 'Pijao (Quindio)'),
+(803, '63594', 'Quimbaya', 'Quindio', 'Quimbaya (Quindio)');
+INSERT INTO `sys_municipios` (`id`, `codigo`, `ciudad`, `departamento`, `union_`) VALUES
+(804, '63690', 'Salento', 'Quindio', 'Salento (Quindio)'),
+(805, '66001', 'Pereira', 'Risaralda', 'Pereira (Risaralda)'),
+(806, '66045', 'Apia', 'Risaralda', 'Apia (Risaralda)'),
+(807, '66075', 'Balboa', 'Risaralda', 'Balboa (Risaralda)'),
+(808, '66088', 'Belen De Umbria', 'Risaralda', 'Belen De Umbria (Risaralda)'),
+(809, '66170', 'Dosquebradas', 'Risaralda', 'Dosquebradas (Risaralda)'),
+(810, '66318', 'Guatica', 'Risaralda', 'Guatica (Risaralda)'),
+(811, '66383', 'La Celia', 'Risaralda', 'La Celia (Risaralda)'),
+(812, '66400', 'La Virginia', 'Risaralda', 'La Virginia (Risaralda)'),
+(813, '66440', 'Marsella', 'Risaralda', 'Marsella (Risaralda)'),
+(814, '66456', 'Mistrato', 'Risaralda', 'Mistrato (Risaralda)'),
+(815, '66572', 'Pueblo Rico', 'Risaralda', 'Pueblo Rico (Risaralda)'),
+(816, '66594', 'Quinchia', 'Risaralda', 'Quinchia (Risaralda)'),
+(817, '66682', 'Santa Rosa De Cabal', 'Risaralda', 'Santa Rosa De Cabal (Risaralda)'),
+(818, '66687', 'Santuario', 'Risaralda', 'Santuario (Risaralda)'),
+(819, '68001', 'Bucaramanga', 'Santander', 'Bucaramanga (Santander)'),
+(820, '68013', 'Aguada', 'Santander', 'Aguada (Santander)'),
+(821, '68020', 'Albania', 'Santander', 'Albania (Santander)'),
+(822, '68051', 'Aratoca', 'Santander', 'Aratoca (Santander)'),
+(823, '68077', 'Barbosa', 'Santander', 'Barbosa (Santander)'),
+(824, '68079', 'Barichara', 'Santander', 'Barichara (Santander)'),
+(825, '68081', 'Barrancabermeja', 'Santander', 'Barrancabermeja (Santander)'),
+(826, '68092', 'Betulia', 'Santander', 'Betulia (Santander)'),
+(827, '68101', 'Bolivar', 'Santander', 'Bolivar (Santander)'),
+(828, '68121', 'Cabrera', 'Santander', 'Cabrera (Santander)'),
+(829, '68132', 'California', 'Santander', 'California (Santander)'),
+(830, '68147', 'Capitanejo', 'Santander', 'Capitanejo (Santander)'),
+(831, '68152', 'Carcasi', 'Santander', 'Carcasi (Santander)'),
+(832, '68160', 'Cepita', 'Santander', 'Cepita (Santander)'),
+(833, '68162', 'Cerrito', 'Santander', 'Cerrito (Santander)'),
+(834, '68167', 'Charala', 'Santander', 'Charala (Santander)'),
+(835, '68169', 'Charta', 'Santander', 'Charta (Santander)'),
+(836, '68176', 'Chima', 'Santander', 'Chima (Santander)'),
+(837, '68179', 'Chipata', 'Santander', 'Chipata (Santander)'),
+(838, '68190', 'Cimitarra', 'Santander', 'Cimitarra (Santander)'),
+(839, '68207', 'Concepcion', 'Santander', 'Concepcion (Santander)'),
+(840, '68209', 'Confines', 'Santander', 'Confines (Santander)'),
+(841, '68211', 'Contratacion', 'Santander', 'Contratacion (Santander)'),
+(842, '68217', 'Coromoro', 'Santander', 'Coromoro (Santander)'),
+(843, '68229', 'Curiti', 'Santander', 'Curiti (Santander)'),
+(844, '68235', 'El Carmen De Chucuri', 'Santander', 'El Carmen De Chucuri (Santander)'),
+(845, '68245', 'El Guacamayo', 'Santander', 'El Guacamayo (Santander)'),
+(846, '68250', 'El Peñon', 'Santander', 'El Peñon (Santander)'),
+(847, '68255', 'El Playon', 'Santander', 'El Playon (Santander)'),
+(848, '68264', 'Encino', 'Santander', 'Encino (Santander)'),
+(849, '68266', 'Enciso', 'Santander', 'Enciso (Santander)'),
+(850, '68271', 'Florian', 'Santander', 'Florian (Santander)'),
+(851, '68276', 'Floridablanca', 'Santander', 'Floridablanca (Santander)'),
+(852, '68296', 'Galan', 'Santander', 'Galan (Santander)'),
+(853, '68298', 'Gambita', 'Santander', 'Gambita (Santander)'),
+(854, '68307', 'Giron', 'Santander', 'Giron (Santander)'),
+(855, '68318', 'Guaca', 'Santander', 'Guaca (Santander)'),
+(856, '68320', 'Guadalupe', 'Santander', 'Guadalupe (Santander)'),
+(857, '68322', 'Guapota', 'Santander', 'Guapota (Santander)'),
+(858, '68324', 'Guavata', 'Santander', 'Guavata (Santander)'),
+(859, '68327', 'Guepsa', 'Santander', 'Guepsa (Santander)'),
+(860, '68344', 'Hato', 'Santander', 'Hato (Santander)'),
+(861, '68368', 'Jesus Maria', 'Santander', 'Jesus Maria (Santander)'),
+(862, '68370', 'Jordan', 'Santander', 'Jordan (Santander)'),
+(863, '68377', 'La Belleza', 'Santander', 'La Belleza (Santander)'),
+(864, '68385', 'Landazuri', 'Santander', 'Landazuri (Santander)'),
+(865, '68397', 'La Paz', 'Santander', 'La Paz (Santander)'),
+(866, '68406', 'Lebrija', 'Santander', 'Lebrija (Santander)'),
+(867, '68418', 'Los Santos', 'Santander', 'Los Santos (Santander)'),
+(868, '68425', 'Macaravita', 'Santander', 'Macaravita (Santander)'),
+(869, '68432', 'Malaga', 'Santander', 'Malaga (Santander)'),
+(870, '68444', 'Matanza', 'Santander', 'Matanza (Santander)'),
+(871, '68464', 'Mogotes', 'Santander', 'Mogotes (Santander)'),
+(872, '68468', 'Molagavita', 'Santander', 'Molagavita (Santander)'),
+(873, '68498', 'Ocamonte', 'Santander', 'Ocamonte (Santander)'),
+(874, '68500', 'Oiba', 'Santander', 'Oiba (Santander)'),
+(875, '68502', 'Onzaga', 'Santander', 'Onzaga (Santander)'),
+(876, '68522', 'Palmar', 'Santander', 'Palmar (Santander)'),
+(877, '68524', 'Palmas Del Socorro', 'Santander', 'Palmas Del Socorro (Santander)'),
+(878, '68533', 'Paramo', 'Santander', 'Paramo (Santander)'),
+(879, '68547', 'Piedecuesta', 'Santander', 'Piedecuesta (Santander)'),
+(880, '68549', 'Pinchote', 'Santander', 'Pinchote (Santander)'),
+(881, '68572', 'Puente Nacional', 'Santander', 'Puente Nacional (Santander)'),
+(882, '68573', 'Puerto Parra', 'Santander', 'Puerto Parra (Santander)'),
+(883, '68575', 'Puerto Wilches', 'Santander', 'Puerto Wilches (Santander)'),
+(884, '68615', 'Rionegro', 'Santander', 'Rionegro (Santander)'),
+(885, '68655', 'Sabana De Torres', 'Santander', 'Sabana De Torres (Santander)'),
+(886, '68669', 'San Andres', 'Santander', 'San Andres (Santander)'),
+(887, '68673', 'San Benito', 'Santander', 'San Benito (Santander)'),
+(888, '68679', 'San Gil', 'Santander', 'San Gil (Santander)'),
+(889, '68682', 'San Joaquin', 'Santander', 'San Joaquin (Santander)'),
+(890, '68684', 'San Jose De Miranda', 'Santander', 'San Jose De Miranda (Santander)'),
+(891, '68686', 'San Miguel', 'Santander', 'San Miguel (Santander)'),
+(892, '68689', 'San Vicente De Chucuri', 'Santander', 'San Vicente De Chucuri (Santander)'),
+(893, '68705', 'Santa Barbara', 'Santander', 'Santa Barbara (Santander)'),
+(894, '68720', 'Santa Helena Del Opon', 'Santander', 'Santa Helena Del Opon (Santander)'),
+(895, '68745', 'Simacota', 'Santander', 'Simacota (Santander)'),
+(896, '68755', 'Socorro', 'Santander', 'Socorro (Santander)'),
+(897, '68770', 'Suaita', 'Santander', 'Suaita (Santander)'),
+(898, '68773', 'Sucre', 'Santander', 'Sucre (Santander)'),
+(899, '68780', 'Surata', 'Santander', 'Surata (Santander)'),
+(900, '68820', 'Tona', 'Santander', 'Tona (Santander)'),
+(901, '68855', 'Valle De San Jose', 'Santander', 'Valle De San Jose (Santander)'),
+(902, '68861', 'Velez', 'Santander', 'Velez (Santander)'),
+(903, '68867', 'Vetas', 'Santander', 'Vetas (Santander)'),
+(904, '68872', 'Villanueva', 'Santander', 'Villanueva (Santander)'),
+(905, '68895', 'Zapatoca', 'Santander', 'Zapatoca (Santander)'),
+(906, '70001', 'Sincelejo', 'Sucre', 'Sincelejo (Sucre)'),
+(907, '70110', 'Buenavista', 'Sucre', 'Buenavista (Sucre)'),
+(908, '70124', 'Caimito', 'Sucre', 'Caimito (Sucre)'),
+(909, '70204', 'Coloso', 'Sucre', 'Coloso (Sucre)'),
+(910, '70215', 'Corozal', 'Sucre', 'Corozal (Sucre)'),
+(911, '70221', 'Coveñas', 'Sucre', 'Coveñas (Sucre)'),
+(912, '70230', 'Chalan', 'Sucre', 'Chalan (Sucre)'),
+(913, '70233', 'El Roble', 'Sucre', 'El Roble (Sucre)'),
+(914, '70235', 'Galeras', 'Sucre', 'Galeras (Sucre)'),
+(915, '70265', 'Guaranda', 'Sucre', 'Guaranda (Sucre)'),
+(916, '70400', 'La Union', 'Sucre', 'La Union (Sucre)'),
+(917, '70418', 'Los Palmitos', 'Sucre', 'Los Palmitos (Sucre)'),
+(918, '70429', 'Majagual', 'Sucre', 'Majagual (Sucre)'),
+(919, '70473', 'Morroa', 'Sucre', 'Morroa (Sucre)'),
+(920, '70508', 'Ovejas', 'Sucre', 'Ovejas (Sucre)'),
+(921, '70523', 'Palmito', 'Sucre', 'Palmito (Sucre)'),
+(922, '70670', 'Sampues', 'Sucre', 'Sampues (Sucre)'),
+(923, '70678', 'San Benito Abad', 'Sucre', 'San Benito Abad (Sucre)'),
+(924, '70702', 'San Juan De Betulia', 'Sucre', 'San Juan De Betulia (Sucre)'),
+(925, '70708', 'San Marcos', 'Sucre', 'San Marcos (Sucre)'),
+(926, '70713', 'San Onofre', 'Sucre', 'San Onofre (Sucre)'),
+(927, '70717', 'San Pedro', 'Sucre', 'San Pedro (Sucre)'),
+(928, '70742', 'Since', 'Sucre', 'Since (Sucre)'),
+(929, '70771', 'Sucre', 'Sucre', 'Sucre (Sucre)'),
+(930, '70820', 'Santiago De Tolu', 'Sucre', 'Santiago De Tolu (Sucre)'),
+(931, '70823', 'Tolu Viejo', 'Sucre', 'Tolu Viejo (Sucre)'),
+(932, '73001', 'Ibague', 'Tolima', 'Ibague (Tolima)'),
+(933, '73024', 'Alpujarra', 'Tolima', 'Alpujarra (Tolima)'),
+(934, '73026', 'Alvarado', 'Tolima', 'Alvarado (Tolima)'),
+(935, '73030', 'Ambalema', 'Tolima', 'Ambalema (Tolima)'),
+(936, '73043', 'Anzoategui', 'Tolima', 'Anzoategui (Tolima)'),
+(937, '73055', 'Armero', 'Tolima', 'Armero (Tolima)'),
+(938, '73067', 'Ataco', 'Tolima', 'Ataco (Tolima)'),
+(939, '73124', 'Cajamarca', 'Tolima', 'Cajamarca (Tolima)'),
+(940, '73148', 'Carmen De Apicala', 'Tolima', 'Carmen De Apicala (Tolima)'),
+(941, '73152', 'Casabianca', 'Tolima', 'Casabianca (Tolima)'),
+(942, '73168', 'Chaparral', 'Tolima', 'Chaparral (Tolima)'),
+(943, '73200', 'Coello', 'Tolima', 'Coello (Tolima)'),
+(944, '73217', 'Coyaima', 'Tolima', 'Coyaima (Tolima)'),
+(945, '73226', 'Cunday', 'Tolima', 'Cunday (Tolima)'),
+(946, '73236', 'Dolores', 'Tolima', 'Dolores (Tolima)'),
+(947, '73268', 'Espinal', 'Tolima', 'Espinal (Tolima)'),
+(948, '73270', 'Falan', 'Tolima', 'Falan (Tolima)'),
+(949, '73275', 'Flandes', 'Tolima', 'Flandes (Tolima)'),
+(950, '73283', 'Fresno', 'Tolima', 'Fresno (Tolima)'),
+(951, '73319', 'Guamo', 'Tolima', 'Guamo (Tolima)'),
+(952, '73347', 'Herveo', 'Tolima', 'Herveo (Tolima)'),
+(953, '73349', 'Honda', 'Tolima', 'Honda (Tolima)'),
+(954, '73352', 'Icononzo', 'Tolima', 'Icononzo (Tolima)'),
+(955, '73408', 'Lerida', 'Tolima', 'Lerida (Tolima)'),
+(956, '73411', 'Libano', 'Tolima', 'Libano (Tolima)'),
+(957, '73443', 'Mariquita', 'Tolima', 'Mariquita (Tolima)'),
+(958, '73449', 'Melgar', 'Tolima', 'Melgar (Tolima)'),
+(959, '73461', 'Murillo', 'Tolima', 'Murillo (Tolima)'),
+(960, '73483', 'Natagaima', 'Tolima', 'Natagaima (Tolima)'),
+(961, '73504', 'Ortega', 'Tolima', 'Ortega (Tolima)'),
+(962, '73520', 'Palocabildo', 'Tolima', 'Palocabildo (Tolima)'),
+(963, '73547', 'Piedras', 'Tolima', 'Piedras (Tolima)'),
+(964, '73555', 'Planadas', 'Tolima', 'Planadas (Tolima)'),
+(965, '73563', 'Prado', 'Tolima', 'Prado (Tolima)'),
+(966, '73585', 'Purificacion', 'Tolima', 'Purificacion (Tolima)'),
+(967, '73616', 'Rioblanco', 'Tolima', 'Rioblanco (Tolima)'),
+(968, '73622', 'Roncesvalles', 'Tolima', 'Roncesvalles (Tolima)'),
+(969, '73624', 'Rovira', 'Tolima', 'Rovira (Tolima)'),
+(970, '73671', 'Saldaña', 'Tolima', 'Saldaña (Tolima)'),
+(971, '73675', 'San Antonio', 'Tolima', 'San Antonio (Tolima)'),
+(972, '73678', 'San Luis', 'Tolima', 'San Luis (Tolima)'),
+(973, '73686', 'Santa Isabel', 'Tolima', 'Santa Isabel (Tolima)'),
+(974, '73770', 'Suarez', 'Tolima', 'Suarez (Tolima)'),
+(975, '73854', 'Valle De San Juan', 'Tolima', 'Valle De San Juan (Tolima)'),
+(976, '73861', 'Venadillo', 'Tolima', 'Venadillo (Tolima)'),
+(977, '73870', 'Villahermosa', 'Tolima', 'Villahermosa (Tolima)'),
+(978, '73873', 'Villarrica', 'Tolima', 'Villarrica (Tolima)'),
+(979, '76001', 'Cali', 'Valle del Cauca', 'Cali (Valle del Cauca)'),
+(980, '76020', 'Alcala', 'Valle del Cauca', 'Alcala (Valle del Cauca)'),
+(981, '76036', 'Andalucia', 'Valle del Cauca', 'Andalucia (Valle del Cauca)'),
+(982, '76041', 'Ansermanuevo', 'Valle del Cauca', 'Ansermanuevo (Valle del Cauca)'),
+(983, '76054', 'Argelia', 'Valle del Cauca', 'Argelia (Valle del Cauca)'),
+(984, '76100', 'Bolivar', 'Valle del Cauca', 'Bolivar (Valle del Cauca)'),
+(985, '76109', 'Buenaventura', 'Valle del Cauca', 'Buenaventura (Valle del Cauca)'),
+(986, '76111', 'Guadalajara De Buga', 'Valle del Cauca', 'Guadalajara De Buga (Valle del Cauca)'),
+(987, '76113', 'Bugalagrande', 'Valle del Cauca', 'Bugalagrande (Valle del Cauca)'),
+(988, '76122', 'Caicedonia', 'Valle del Cauca', 'Caicedonia (Valle del Cauca)'),
+(989, '76126', 'Calima', 'Valle del Cauca', 'Calima (Valle del Cauca)'),
+(990, '76130', 'Candelaria', 'Valle del Cauca', 'Candelaria (Valle del Cauca)'),
+(991, '76147', 'Cartago', 'Valle del Cauca', 'Cartago (Valle del Cauca)'),
+(992, '76233', 'Dagua', 'Valle del Cauca', 'Dagua (Valle del Cauca)'),
+(993, '76243', 'El Aguila', 'Valle del Cauca', 'El Aguila (Valle del Cauca)'),
+(994, '76246', 'El Cairo', 'Valle del Cauca', 'El Cairo (Valle del Cauca)'),
+(995, '76248', 'El Cerrito', 'Valle del Cauca', 'El Cerrito (Valle del Cauca)'),
+(996, '76250', 'El Dovio', 'Valle del Cauca', 'El Dovio (Valle del Cauca)'),
+(997, '76275', 'Florida', 'Valle del Cauca', 'Florida (Valle del Cauca)'),
+(998, '76306', 'Ginebra', 'Valle del Cauca', 'Ginebra (Valle del Cauca)'),
+(999, '76318', 'Guacari', 'Valle del Cauca', 'Guacari (Valle del Cauca)'),
+(1000, '76364', 'Jamundi', 'Valle del Cauca', 'Jamundi (Valle del Cauca)'),
+(1001, '76377', 'La Cumbre', 'Valle del Cauca', 'La Cumbre (Valle del Cauca)'),
+(1002, '76400', 'La Union', 'Valle del Cauca', 'La Union (Valle del Cauca)'),
+(1003, '76403', 'La Victoria', 'Valle del Cauca', 'La Victoria (Valle del Cauca)'),
+(1004, '76497', 'Obando', 'Valle del Cauca', 'Obando (Valle del Cauca)'),
+(1005, '76520', 'Palmira', 'Valle del Cauca', 'Palmira (Valle del Cauca)'),
+(1006, '76563', 'Pradera', 'Valle del Cauca', 'Pradera (Valle del Cauca)'),
+(1007, '76606', 'Restrepo', 'Valle del Cauca', 'Restrepo (Valle del Cauca)'),
+(1008, '76616', 'Riofrio', 'Valle del Cauca', 'Riofrio (Valle del Cauca)'),
+(1009, '76622', 'Roldanillo', 'Valle del Cauca', 'Roldanillo (Valle del Cauca)'),
+(1010, '76670', 'San Pedro', 'Valle del Cauca', 'San Pedro (Valle del Cauca)'),
+(1011, '76736', 'Sevilla', 'Valle del Cauca', 'Sevilla (Valle del Cauca)'),
+(1012, '76823', 'Toro', 'Valle del Cauca', 'Toro (Valle del Cauca)'),
+(1013, '76828', 'Trujillo', 'Valle del Cauca', 'Trujillo (Valle del Cauca)'),
+(1014, '76834', 'Tulua', 'Valle del Cauca', 'Tulua (Valle del Cauca)'),
+(1015, '76845', 'Ulloa', 'Valle del Cauca', 'Ulloa (Valle del Cauca)'),
+(1016, '76863', 'Versalles', 'Valle del Cauca', 'Versalles (Valle del Cauca)'),
+(1017, '76869', 'Vijes', 'Valle del Cauca', 'Vijes (Valle del Cauca)'),
+(1018, '76890', 'Yotoco', 'Valle del Cauca', 'Yotoco (Valle del Cauca)'),
+(1019, '76892', 'Yumbo', 'Valle del Cauca', 'Yumbo (Valle del Cauca)'),
+(1020, '76895', 'Zarzal', 'Valle del Cauca', 'Zarzal (Valle del Cauca)'),
+(1021, '8001', 'Barranquilla', 'Atlántico', 'Barranquilla (Atlántico)'),
+(1022, '8078', 'Baranoa', 'Atlántico', 'Baranoa (Atlántico)'),
+(1023, '81001', 'Arauca', 'Arauca', 'Arauca (Arauca)'),
+(1024, '81065', 'Arauquita', 'Arauca', 'Arauquita (Arauca)'),
+(1025, '81220', 'Cravo Norte', 'Arauca', 'Cravo Norte (Arauca)'),
+(1026, '81300', 'Fortul', 'Arauca', 'Fortul (Arauca)'),
+(1027, '8137', 'Campo De La Cruz', 'Atlántico', 'Campo De La Cruz (Atlántico)'),
+(1028, '8141', 'Candelaria', 'Atlántico', 'Candelaria (Atlántico)'),
+(1029, '81591', 'Puerto Rondon', 'Arauca', 'Puerto Rondon (Arauca)'),
+(1030, '81736', 'Saravena', 'Arauca', 'Saravena (Arauca)'),
+(1031, '81794', 'Tame', 'Arauca', 'Tame (Arauca)'),
+(1032, '8296', 'Galapa', 'Atlántico', 'Galapa (Atlántico)'),
+(1033, '8372', 'Juan De Acosta', 'Atlántico', 'Juan De Acosta (Atlántico)'),
+(1034, '8421', 'Luruaco', 'Atlántico', 'Luruaco (Atlántico)'),
+(1035, '8433', 'Malambo', 'Atlántico', 'Malambo (Atlántico)'),
+(1036, '8436', 'Manati', 'Atlántico', 'Manati (Atlántico)'),
+(1037, '85001', 'Yopal', 'Casanare', 'Yopal (Casanare)'),
+(1038, '85010', 'Aguazul', 'Casanare', 'Aguazul (Casanare)'),
+(1039, '85015', 'Chameza', 'Casanare', 'Chameza (Casanare)'),
+(1040, '85125', 'Hato Corozal', 'Casanare', 'Hato Corozal (Casanare)'),
+(1041, '85136', 'La Salina', 'Casanare', 'La Salina (Casanare)'),
+(1042, '85139', 'Mani', 'Casanare', 'Mani (Casanare)'),
+(1043, '85162', 'Monterrey', 'Casanare', 'Monterrey (Casanare)'),
+(1044, '8520', 'Palmar De Varela', 'Atlántico', 'Palmar De Varela (Atlántico)'),
+(1045, '85225', 'Nunchia', 'Casanare', 'Nunchia (Casanare)'),
+(1046, '85230', 'Orocue', 'Casanare', 'Orocue (Casanare)'),
+(1047, '85250', 'Paz De Ariporo', 'Casanare', 'Paz De Ariporo (Casanare)'),
+(1048, '85263', 'Pore', 'Casanare', 'Pore (Casanare)'),
+(1049, '85279', 'Recetor', 'Casanare', 'Recetor (Casanare)'),
+(1050, '85300', 'Sabanalarga', 'Casanare', 'Sabanalarga (Casanare)'),
+(1051, '85315', 'Sacama', 'Casanare', 'Sacama (Casanare)'),
+(1052, '85325', 'San Luis De Palenque', 'Casanare', 'San Luis De Palenque (Casanare)'),
+(1053, '85400', 'Tamara', 'Casanare', 'Tamara (Casanare)'),
+(1054, '85410', 'Tauramena', 'Casanare', 'Tauramena (Casanare)'),
+(1055, '85430', 'Trinidad', 'Casanare', 'Trinidad (Casanare)'),
+(1056, '85440', 'Villanueva', 'Casanare', 'Villanueva (Casanare)'),
+(1057, '8549', 'Piojo', 'Atlántico', 'Piojo (Atlántico)'),
+(1058, '8558', 'Polonuevo', 'Atlántico', 'Polonuevo (Atlántico)'),
+(1059, '8560', 'Ponedera', 'Atlántico', 'Ponedera (Atlántico)'),
+(1060, '8573', 'Puerto Colombia', 'Atlántico', 'Puerto Colombia (Atlántico)'),
+(1061, '86001', 'Mocoa', 'Putumayo', 'Mocoa (Putumayo)'),
+(1062, '8606', 'Repelon', 'Atlántico', 'Repelon (Atlántico)'),
+(1063, '86219', 'Colon', 'Putumayo', 'Colon (Putumayo)'),
+(1064, '86320', 'Orito', 'Putumayo', 'Orito (Putumayo)'),
+(1065, '8634', 'Sabanagrande', 'Atlántico', 'Sabanagrande (Atlántico)'),
+(1066, '8638', 'Sabanalarga', 'Atlántico', 'Sabanalarga (Atlántico)'),
+(1067, '86568', 'Puerto Asis', 'Putumayo', 'Puerto Asis (Putumayo)'),
+(1068, '86569', 'Puerto Caicedo', 'Putumayo', 'Puerto Caicedo (Putumayo)'),
+(1069, '86571', 'Puerto Guzman', 'Putumayo', 'Puerto Guzman (Putumayo)'),
+(1070, '86573', 'Leguizamo', 'Putumayo', 'Leguizamo (Putumayo)'),
+(1071, '86749', 'Sibundoy', 'Putumayo', 'Sibundoy (Putumayo)'),
+(1072, '8675', 'Santa Lucia', 'Atlántico', 'Santa Lucia (Atlántico)'),
+(1073, '86755', 'San Francisco', 'Putumayo', 'San Francisco (Putumayo)'),
+(1074, '86757', 'San Miguel', 'Putumayo', 'San Miguel (Putumayo)'),
+(1075, '86760', 'Santiago', 'Putumayo', 'Santiago (Putumayo)'),
+(1076, '8685', 'Santo Tomas', 'Atlántico', 'Santo Tomas (Atlántico)'),
+(1077, '86865', 'Valle Del Guamuez', 'Putumayo', 'Valle Del Guamuez (Putumayo)'),
+(1078, '86885', 'Villagarzon', 'Putumayo', 'Villagarzon (Putumayo)'),
+(1079, '8758', 'Soledad', 'Atlántico', 'Soledad (Atlántico)'),
+(1080, '8770', 'Suan', 'Atlántico', 'Suan (Atlántico)'),
+(1081, '88001', 'San Andres', 'Archipielago de San Andres, Providencia y Santa Catalina', 'San Andres (Archipielago de San Andres, Providencia y Santa Catalina)'),
+(1082, '8832', 'Tubara', 'Atlántico', 'Tubara (Atlántico)'),
+(1083, '8849', 'Usiacuri', 'Atlántico', 'Usiacuri (Atlántico)'),
+(1084, '88564', 'Providencia', 'Archipielago de San Andres, Providencia y Santa Catalina', 'Providencia (Archipielago de San Andres, Providencia y Santa Catalina)'),
+(1085, '91001', 'Leticia', 'Amazonas', 'Leticia (Amazonas)'),
+(1086, '91263', 'El Encanto', 'Amazonas', 'El Encanto (Amazonas)'),
+(1087, '91405', 'La Chorrera', 'Amazonas', 'La Chorrera (Amazonas)'),
+(1088, '91407', 'La Pedrera', 'Amazonas', 'La Pedrera (Amazonas)'),
+(1089, '91430', 'La Victoria', 'Amazonas', 'La Victoria (Amazonas)'),
+(1090, '91460', 'Miriti - Parana', 'Amazonas', 'Miriti - Parana (Amazonas)'),
+(1091, '91530', 'Puerto Alegria', 'Amazonas', 'Puerto Alegria (Amazonas)'),
+(1092, '91536', 'Puerto Arica', 'Amazonas', 'Puerto Arica (Amazonas)'),
+(1093, '91540', 'Puerto Nariño', 'Amazonas', 'Puerto Nariño (Amazonas)'),
+(1094, '91669', 'Puerto Santander', 'Amazonas', 'Puerto Santander (Amazonas)'),
+(1095, '91798', 'Tarapaca', 'Amazonas', 'Tarapaca (Amazonas)'),
+(1096, '94001', 'Inirida', 'Guainia', 'Inirida (Guainia)'),
+(1097, '94343', 'Barranco Minas', 'Guainia', 'Barranco Minas (Guainia)'),
+(1098, '94663', 'Mapiripana', 'Guainia', 'Mapiripana (Guainia)'),
+(1099, '94883', 'San Felipe', 'Guainia', 'San Felipe (Guainia)'),
+(1100, '94884', 'Puerto Colombia', 'Guainia', 'Puerto Colombia (Guainia)'),
+(1101, '94885', 'La Guadalupe', 'Guainia', 'La Guadalupe (Guainia)'),
+(1102, '94886', 'Cacahual', 'Guainia', 'Cacahual (Guainia)'),
+(1103, '94887', 'Pana Pana', 'Guainia', 'Pana Pana (Guainia)'),
+(1104, '94888', 'Morichal', 'Guainia', 'Morichal (Guainia)'),
+(1105, '95001', 'San Jose Del Guaviare', 'Guaviare', 'San Jose Del Guaviare (Guaviare)'),
+(1106, '95015', 'Calamar', 'Guaviare', 'Calamar (Guaviare)'),
+(1107, '95025', 'El Retorno', 'Guaviare', 'El Retorno (Guaviare)'),
+(1108, '95200', 'Miraflores', 'Guaviare', 'Miraflores (Guaviare)'),
+(1109, '97001', 'Mitu', 'Vaupes', 'Mitu (Vaupes)'),
+(1110, '97161', 'Caruru', 'Vaupes', 'Caruru (Vaupes)'),
+(1111, '97511', 'Pacoa', 'Vaupes', 'Pacoa (Vaupes)'),
+(1112, '97666', 'Taraira', 'Vaupes', 'Taraira (Vaupes)'),
+(1113, '97777', 'Papunaua', 'Vaupes', 'Papunaua (Vaupes)'),
+(1114, '97889', 'Yavarate', 'Vaupes', 'Yavarate (Vaupes)'),
+(1115, '99001', 'Puerto Carreño', 'Vichada', 'Puerto Carreño (Vichada)'),
+(1116, '99524', 'La Primavera', 'Vichada', 'La Primavera (Vichada)'),
+(1117, '99624', 'Santa Rosalia', 'Vichada', 'Santa Rosalia (Vichada)'),
+(1118, '99773', 'Cumaribo', 'Vichada', 'Cumaribo (Vichada)'),
+(1119, '99999', 'Exterior', 'Exterior', 'Exterior (Exterior)'),
+(1120, '17081', 'Caldas', 'Antioquia', 'Caldas (Antioquia)');
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_otros_ingresos"                                         #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_otros_ingresos (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    descripcion VARCHAR(100) NOT NULL,
+    Retencion VARCHAR(100) NOT NULL,
+    iva VARCHAR(100) NOT NULL,
+    contabiliza INTEGER(10) NOT NULL,
+    CONSTRAINT PK_sys_otros_ingresos PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_paises_mundo"                                           #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_paises_mundo (
+    pais_id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    codigo VARCHAR(10) NOT NULL,
+    pais VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_sys_paises_mundo PRIMARY KEY (pais_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_profesiones"                                            #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_profesiones (
+    profesion_id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    profesion VARCHAR(150) NOT NULL,
+    CONSTRAINT PK_sys_profesiones PRIMARY KEY (profesion_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_puc"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_puc (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    grupo VARCHAR(100) NOT NULL,
+    tipo VARCHAR(100) NOT NULL,
+    subtipo VARCHAR(100) NOT NULL,
+    codigo VARCHAR(100) NOT NULL,
+    cuenta VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_sys_puc PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_retenciones"                                            #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_retenciones (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    familia VARCHAR(100) NOT NULL,
+    detalle VARCHAR(100) NOT NULL,
+    valor_base_retencion VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_sys_retenciones PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_roles"                                                  #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_roles (
+    rol_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    json LONGTEXT NOT NULL,
+    json_edit LONGTEXT NOT NULL,
+    json_add LONGTEXT NOT NULL,
+    estado INTEGER(1) DEFAULT '1',
+    type_id INTEGER(10) UNSIGNED,
+    CONSTRAINT PK_sys_roles PRIMARY KEY (rol_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_roles_modulos"                                          #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_roles_modulos (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    modulo_padre INTEGER(11) NOT NULL,
+    modulo VARCHAR(50) NOT NULL,
+    url VARCHAR(200) NOT NULL,
+    order_ INTEGER(11) DEFAULT NULL,
+    ico VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_sys_roles_modulos PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_session"                                                #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_session (
+    id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    user_id INTEGER(11) NOT NULL,
+    fecha DATETIME NOT NULL,
+    session_id VARCHAR(200) NOT NULL,
+    CONSTRAINT PK_sys_session PRIMARY KEY (id, user_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_tipo_contrato"                                          #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_tipo_contrato (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    tipo_contrato VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_sys_tipo_contrato PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_tipo_identidad"                                         #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_tipo_identidad (
+    tipo_identidad_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    tipo_identidad VARCHAR(100) NOT NULL,
+    CONSTRAINT PK_sys_tipo_identidad PRIMARY KEY (tipo_identidad_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+INSERT INTO `sys_tipo_identidad` (`tipo_identidad_id`, `tipo_identidad`) VALUES (1, 'RC - Registro Civil de Nacimiento'), (2, 'TI - Tarjeta de identidad'), (3, 'CC - Cedula Ciudadanía'), (4, 'TE - Tarjeta de extranjería'), (5, 'CE - Cédula de Extranjería'), (6, 'NIT - Número Identificación Tributario'), (7, 'PP - Pasaporte'), (8, 'DIE - Doc. Indentificación Extranjero');
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_tipo_usuario"                                           #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_tipo_usuario (
+    type_id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    tipo VARCHAR(30) NOT NULL,
+    CONSTRAINT PK_sys_tipo_usuario PRIMARY KEY (type_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_trm"                                                    #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_trm (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    fecha DATE NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    CONSTRAINT PK_sys_trm PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# ---------------------------------------------------------------------- #
+# Add table "sys_und_medida"                                             #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE sys_und_medida (
+    id INTEGER(10) NOT NULL AUTO_INCREMENT,
+    abreviacion VARCHAR(20) NOT NULL,
+    nombre VARCHAR(20) NOT NULL,
+    equivale VARCHAR(20) NOT NULL,
+    unidad_equivalencia VARCHAR(20) NOT NULL,
+    CONSTRAINT PK_sys_und_medida PRIMARY KEY (id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+# ---------------------------------------------------------------------- #
+# Add table "usuarios"                                                   #
+# ---------------------------------------------------------------------- #
+
+CREATE TABLE usuarios (
+    user_id INTEGER(11) NOT NULL AUTO_INCREMENT,
+    empresa_id INTEGER(11) NOT NULL,
+    type_id INTEGER(10) NOT NULL,
+    login VARCHAR(40),
+    email VARCHAR(150),
+    password VARCHAR(150),
+    intentos_errados INTEGER(1),
+    estado INTEGER(11) NOT NULL,
+    token VARCHAR(100),
+    CONSTRAINT PK_usuarios PRIMARY KEY (user_id, empresa_id, type_id)
+)
+ ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `usuarios` ADD `primer_nombre` VARCHAR(150) NOT NULL AFTER `user_id`, ADD `segundo_nombre` VARCHAR(150) NOT NULL AFTER `primer_nombre`, ADD `primer_apellido` VARCHAR(150) NOT NULL AFTER `segundo_nombre`, ADD `segundo_apellido` VARCHAR(150) NOT NULL AFTER `primer_apellido`;
+
+# ---------------------------------------------------------------------- #
+# Foreign key constraints                                                #
+# ---------------------------------------------------------------------- #
+
+ALTER TABLE cf_ciclos_pagos ADD CONSTRAINT mae_cliente_joberp_cf_ciclos_pagos
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_administrativo ADD CONSTRAINT mae_cliente_joberp_mae_administrativo
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_administrativo ADD CONSTRAINT sys_eps_mae_administrativo
+    FOREIGN KEY (eps_id) REFERENCES sys_eps (eps_id);
+
+ALTER TABLE mae_administrativo ADD CONSTRAINT sys_caja_comp_mae_administrativo
+    FOREIGN KEY (caja_compensacion_id) REFERENCES sys_caja_comp (caja_compensacion_id);
+
+ALTER TABLE mae_asociado ADD CONSTRAINT sys_tipo_identidad_mae_asociado
+    FOREIGN KEY (tipo_identidad_id) REFERENCES sys_tipo_identidad (tipo_identidad_id);
+
+ALTER TABLE mae_asociado ADD CONSTRAINT sys_eps_mae_asociado
+    FOREIGN KEY (eps_id) REFERENCES sys_eps (eps_id);
+
+ALTER TABLE mae_asociado ADD CONSTRAINT sys_caja_comp_mae_asociado
+    FOREIGN KEY (caja_compensacion_id) REFERENCES sys_caja_comp (caja_compensacion_id);
+
+ALTER TABLE mae_centro_costo ADD CONSTRAINT mae_cliente_joberp_mae_centro_costo
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_cliente ADD CONSTRAINT sys_tipo_identidad_mae_cliente
+    FOREIGN KEY (tipo_identidad_id) REFERENCES sys_tipo_identidad (tipo_identidad_id);
+
+ALTER TABLE mae_cliente ADD CONSTRAINT mae_cliente_joberp_mae_cliente
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_cuenta_bancaria ADD CONSTRAINT mae_cliente_joberp_mae_cuenta_bancaria
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_cuenta_bancaria ADD CONSTRAINT sys_bancos_mae_cuenta_bancaria
+    FOREIGN KEY (banco_id) REFERENCES sys_bancos (banco_id);
+
+ALTER TABLE mae_forma_de_pago ADD CONSTRAINT mae_cliente_joberp_mae_forma_de_pago
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_inventario ADD CONSTRAINT mae_cliente_joberp_mae_inventario
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_pes_inventario ADD CONSTRAINT mae_cliente_joberp_mae_pes_inventario
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_proveedores ADD CONSTRAINT sys_tipo_identidad_mae_proveedores
+    FOREIGN KEY (tipo_identidad_id) REFERENCES sys_tipo_identidad (tipo_identidad_id);
+
+ALTER TABLE mae_proveedores ADD CONSTRAINT mae_cliente_joberp_mae_proveedores
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_usuarios_empleados ADD CONSTRAINT sys_tipo_identidad_mae_usuarios_empleados
+    FOREIGN KEY (tipo_identidad_id) REFERENCES sys_tipo_identidad (tipo_identidad_id);
+
+ALTER TABLE mae_usuarios_empleados ADD CONSTRAINT mae_cliente_joberp_mae_usuarios_empleados
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE mae_usuarios_empleados ADD CONSTRAINT sys_estado_civil_mae_usuarios_empleados
+    FOREIGN KEY (estado_civil_id) REFERENCES sys_estado_civil (estado_civil_id);
+
+ALTER TABLE mae_usuarios_empleados ADD CONSTRAINT sys_eps_mae_usuarios_empleados
+    FOREIGN KEY (eps_id) REFERENCES sys_eps (eps_id);
+
+ALTER TABLE mae_usuarios_empleados ADD CONSTRAINT sys_caja_comp_mae_usuarios_empleados
+    FOREIGN KEY (caja_compensacion_id) REFERENCES sys_caja_comp (caja_compensacion_id);
+
+ALTER TABLE sys_logs ADD CONSTRAINT usuarios_sys_logs
+    FOREIGN KEY (user_id) REFERENCES usuarios (user_id);
+
+ALTER TABLE sys_session ADD CONSTRAINT usuarios_sys_session
+    FOREIGN KEY (user_id) REFERENCES usuarios (user_id);
+
+ALTER TABLE usuarios ADD CONSTRAINT mae_cliente_joberp_usuarios
+    FOREIGN KEY (empresa_id) REFERENCES mae_cliente_joberp (empresa_id);
+
+ALTER TABLE usuarios ADD CONSTRAINT sys_tipo_usuario_usuarios
+    FOREIGN KEY (type_id) REFERENCES sys_tipo_usuario (type_id);
+
+ALTER TABLE `sys_tipo_usuario` ADD `empresa_id` INT(11) NULL DEFAULT '1' AFTER `tipo`;
+
+ALTER TABLE `op_links` ADD `user_id` INT(11) NOT NULL AFTER `contador`;
+ALTER TABLE `usuarios` CHANGE `password` `password` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `sys_roles` ADD `id` INT(11) NOT NULL FIRST;
+ALTER TABLE `sys_roles` CHANGE `rol_id` `rol_id` INT(11) NOT NULL;
+ALTER TABLE `sys_roles` DROP PRIMARY KEY;
+ALTER TABLE `sys_roles` ADD PRIMARY KEY(`id`);
+ALTER TABLE `sys_roles` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `sys_roles` DROP `rol_id`;
+ALTER TABLE `sys_roles` CHANGE `type_id` `type_id` INT(10) NULL DEFAULT NULL AFTER `id`;
+
+
+INSERT INTO `sys_roles_modulos` (`id`, `modulo_padre`, `modulo`, `url`, `order_`, `ico`) VALUES
+(1, 0, 'Configuración', '', 6, ''),
+(2, 0, 'Administrativo', '', 4, ''),
+(3, 0, 'Reportes', '', 5, ''),
+(4, 0, 'Gestión Humana', '', 3, ''),
+(5, 0, 'Operaciones', '', 2, ''),
+(6, 1, 'Empresa', '', NULL, ''),
+(7, 1, 'Personalización', '', NULL, ''),
+(8, 1, 'Ventas', '', NULL, ''),
+(9, 1, 'Pos', '', NULL, ''),
+(10, 1, 'Finanzas', '', NULL, ''),
+(11, 1, 'Contabilidad', '', NULL, ''),
+(12, 6, 'Empresa', 'Empresas', NULL, ''),
+(13, 6, 'Usuarios', 'usuarios', NULL, ''),
+(14, 6, 'Clientes', 'Clientes/Listar', NULL, ''),
+(15, 7, 'Color aplicativo', 'Configuracion/Colores', NULL, ''),
+(16, 7, 'Subroles', 'Configuracion/Subroles', NULL, ''),
+(17, 7, 'Plantillas', 'Configuracion/Plantillas', NULL, ''),
+(18, 7, 'Notificaciones', 'Configuracion/Notificaciones', NULL, ''),
+(19, 7, 'Preferencias', 'Configuracion/Preferencias', NULL, ''),
+(20, 7, 'Cobros Automáticos', 'Configuracion/CobrosAutomaticos', NULL, ''),
+(21, 8, 'Formas de pago', 'Configuracion/FormasPago', NULL, ''),
+(22, 8, 'Términos de pago', 'terminos', NULL, ''),
+(23, 8, 'Lista de precios', 'Configuracion/ListaPrecios', NULL, ''),
+(24, 8, 'Parametrización', 'Configuracion/Parametrizacion', NULL, ''),
+(25, 8, 'Colegaje', 'colegaje', NULL, ''),
+(26, 9, 'Terminales', 'terminales', NULL, ''),
+(27, 10, 'Cajas', 'Operaciones/Cajas', NULL, ''),
+(28, 10, 'Bancos', 'bancos', NULL, ''),
+(29, 11, 'Parametrización', 'Configuracion/Parametrizacion', NULL, ''),
+(30, 11, 'Ciclo contable', 'Configuracion/CicloContable', NULL, ''),
+(31, 11, 'Consecutivos', 'Configuracion/Consecutivo', NULL, ''),
+(32, 11, 'Impuestos', 'Configuracion/Impuesto', NULL, ''),
+(33, 11, 'Retenciones', 'Configuracion/Retenciones', NULL, ''),
+(34, 11, 'Capital social', 'Configuracion/CapitalSocial', NULL, ''),
+(35, 11, 'Ajustes al patrimonio', 'Configuracion/AjustePatrimonio', NULL, ''),
+(36, 3, 'Ventas', '', NULL, ''),
+(37, 3, 'Cartera', '', NULL, ''),
+(38, 3, 'Administrativo', '', NULL, ''),
+(39, 3, 'Contabilidad', '', NULL, ''),
+(40, 3, 'Inventario', '', NULL, ''),
+(41, 3, 'Compras', '', NULL, ''),
+(42, 3, 'Costos y finanzas', '', NULL, ''),
+(43, 3, 'Gestión Humana', '', NULL, ''),
+(44, 36, 'Ventas por día', 'ventas_dias', NULL, ''),
+(45, 36, 'Ventas por intem', 'ventas_intem', NULL, ''),
+(46, 36, 'Ventas por cliente', 'venta_cliente', NULL, ''),
+(47, 36, 'Ventas por vendedor', 'ventas_vendedor', NULL, ''),
+(48, 36, 'Rentabilidad', 'rentabilidad', NULL, ''),
+(49, 36, 'Lista de precios', 'lista_precio', NULL, ''),
+(50, 36, 'Pedidos y entregas', 'pedidos_entregas', NULL, ''),
+(51, 36, 'Dropshipping', 'Dropshipping', NULL, ''),
+(52, 37, 'Cuentas por cobrar', 'cuentas_cobrar', NULL, ''),
+(53, 37, 'Vencimiento cartera', 'vecinos_cartera', NULL, ''),
+(54, 37, 'Métodos de pago', 'metodos_pagos', NULL, ''),
+(55, 38, 'Gastos por pagar', 'gastos', NULL, ''),
+(56, 38, 'Ingresos y egresos', 'ingresos_egresos', NULL, ''),
+(57, 39, 'Estado de resultados', 'estado', NULL, ''),
+(58, 39, 'Balance genera', 'balance', NULL, ''),
+(59, 39, 'Impuestos y retenciones', 'impuesto', NULL, ''),
+(60, 39, 'Libro mayor', 'libro', NULL, ''),
+(61, 39, 'Auxiliares', 'auxiliares', NULL, ''),
+(62, 40, 'Inventario valorizado', 'inventario', NULL, ''),
+(63, 40, 'Inventario actual', 'inventario_actual', NULL, ''),
+(64, 40, 'Presupuesto inventario', 'presupuesto', NULL, ''),
+(65, 40, 'Rotación inventario', 'rotacion', NULL, ''),
+(66, 40, 'Productos fidelizados', 'productos', NULL, ''),
+(67, 40, 'Niveles inventario', 'niveles', NULL, ''),
+(68, 41, 'Compras por pagar', 'compras', NULL, ''),
+(69, 41, 'Inventario en tránsito', 'inventario_transito', NULL, ''),
+(70, 42, 'Indicadores', 'indicadores', NULL, ''),
+(71, 42, 'Flujo de caja', 'flujo_caja', NULL, ''),
+(72, 42, 'Costos por márgenes', 'costo_margenes', NULL, ''),
+(73, 42, 'Costo de venta', 'costo_venta', NULL, ''),
+(74, 42, 'Margen bruto', 'margen_bruto', NULL, ''),
+(75, 43, 'Préstamos', 'prestamo', NULL, ''),
+(76, 43, 'Bonificaciones', 'bonificaciones', NULL, ''),
+(77, 43, 'Cumpleaños', 'cumpleaños', NULL, ''),
+(78, 43, 'Planilla única de pago', 'plantilla_unica', NULL, ''),
+(79, 43, 'Contratos', 'contratos', NULL, ''),
+(80, 43, 'Vacaciones', 'vacaciones', NULL, ''),
+(81, 43, 'Resumen entrevistas', 'resumen_entrevista', NULL, ''),
+(82, 43, 'Resumen terceros', 'resumen_tercero', NULL, ''),
+(83, 2, 'Crear tercero', '', NULL, ''),
+(84, 2, 'Cartera', '', NULL, ''),
+(85, 2, 'Inventario', '', NULL, ''),
+(86, 2, 'Reuniones', '', NULL, ''),
+(87, 2, 'Asistencial', '', NULL, ''),
+(88, 83, 'Asociados', 'Usuarios/Asociados', NULL, ''),
+(89, 83, 'Administrativos', 'Usuarios/Administrativos', NULL, ''),
+(90, 83, 'Clientes', 'Usuarios/Todos/Clientes', NULL, ''),
+(91, 83, 'Vendedores', 'Usuarios/Vendedores', NULL, ''),
+(92, 83, 'Proveedores', 'Usuarios/proveedores', NULL, ''),
+(93, 84, 'Recordatorio pagos', 'Administrativo/RecordatorioPagos', NULL, ''),
+(94, 84, 'Gestión de cobro', 'Administrativo/GestionCobro', NULL, ''),
+(95, 84, 'Análisis de crédito', 'Administrativo/AnalisisCredito', NULL, ''),
+(96, 84, 'Plantillas', 'Administrativo/Plantillas', NULL, ''),
+(97, 84, 'Castigo a facturas', 'Administrativo/CastigoFactura', NULL, ''),
+(98, 85, 'Items', 'Administrativo/Items', NULL, ''),
+(99, 85, 'Lineas', 'Administrativo/Lineas', NULL, ''),
+(100, 85, 'Ajuste al costo', 'Administrativo/AjusteCosto', NULL, ''),
+(101, 85, 'Inventario fìsico', 'Administrativo/InventarioFisico', NULL, ''),
+(102, 85, 'Bodegas', 'Administrativo/Bodegas', NULL, ''),
+(103, 85, 'Traslados', 'Administrativo/Traslado', NULL, ''),
+(104, 85, 'Otras entradas', 'Administrativo/OtrasEntradas', NULL, ''),
+(105, 85, 'Otras salidas', 'Administrativo/OtrasSalidas', NULL, ''),
+(106, 86, 'Actas', 'Administrativo/Actas', NULL, ''),
+(107, 86, 'Compromisos', 'Administrativo/Compromisos', NULL, ''),
+(108, 87, 'Historial de llamadas', 'Administrativo/HistoriaLLamadas', NULL, ''),
+(109, 87, 'Calendario', 'Administrativo/Calendario', NULL, ''),
+(110, 87, 'Correspondencia', 'Administrativo/Correspondencia', NULL, ''),
+(111, 4, 'Nomina', '', NULL, ''),
+(112, 4, 'Gestión funcionarios', '', NULL, ''),
+(113, 4, 'Gestión de contratos', '', NULL, ''),
+(114, 4, 'Gestión de ingresos', '', NULL, ''),
+(115, 4, 'Diversos', '', NULL, ''),
+(116, 111, 'Nomina', 'Reportes/Nominas', NULL, ''),
+(117, 111, 'Descuentos', 'Usuarios/descuentos', NULL, ''),
+(118, 111, 'Bonificaciones', 'Usuarios/bonificaciones', NULL, ''),
+(119, 111, 'Honorarios', 'Usuarios/Honorarios', NULL, ''),
+(120, 112, 'Cuentas bancarias', 'Usuarios/CuentasBancarias', NULL, ''),
+(121, 112, 'Certificado laboral', 'Usuarios/CertificadoLaboral', NULL, ''),
+(122, 113, 'Vinculación directa', 'Usuarios/vinculacion/directa', NULL, ''),
+(123, 113, 'Otro tipo de vinculación', 'Usuarios/vinculacion/otros', NULL, ''),
+(124, 114, 'Programar entrevista', 'Usuarios/ProgramarEntrevista', NULL, ''),
+(125, 114, 'Conocimiento aspirante', 'Usuarios/ConocimientoAspirante', NULL, ''),
+(126, 115, 'Administrar plataformas', 'Usuarios/AdministrarPlataformas', NULL, ''),
+(127, 115, 'Administrar usuarios', 'Usuarios/AdministrarUsuarios', NULL, ''),
+(128, 115, 'Comunicados', 'Usuarios/Comunicados', NULL, ''),
+(129, 115, 'Chat', 'Usuarios/Chat', NULL, ''),
+(130, 5, 'Disponible', '', NULL, ''),
+(131, 5, 'Ventas', '', NULL, ''),
+(132, 5, 'POS', '', NULL, ''),
+(133, 5, 'Compras', '', NULL, ''),
+(134, 5, 'Gastos', '', NULL, ''),
+(135, 5, 'Impuestos', '', NULL, ''),
+(136, 5, 'Contabilidad', '', NULL, ''),
+(137, 130, 'Cajas', 'Operaciones/Cajas', NULL, ''),
+(138, 130, 'Bancos nacionales', 'Operaciones/Bancos/Nacionales', NULL, ''),
+(141, 131, 'Orden de atención', 'Operaciones/orden/atencion', NULL, ''),
+(142, 131, 'Factura de venta', 'Reportes/FacturaVentas', NULL, ''),
+(143, 131, 'Otros ingresos', 'Usuarios/OtrosIngresos', NULL, ''),
+(144, 131, 'Devoluciones', 'Operaciones/devoluciones', NULL, ''),
+(145, 131, 'Remisiones', 'Operaciones/remisiones', NULL, ''),
+(146, 131, 'Pedidos (Entregas)', 'Operaciones/pedidos/entrega', NULL, ''),
+(148, 132, 'Ventas', 'ventas', NULL, ''),
+(150, 133, 'Órden de compra', 'Operaciones/orden/compra', NULL, ''),
+(151, 133, 'Factura de compra', 'Reportes/FacturaCompras', NULL, ''),
+(152, 133, 'Devoluciones', 'Operaciones/devoluciones/compras', NULL, ''),
+(153, 134, 'Gastos varios', 'Operaciones/gastos/varios', NULL, ''),
+(154, 135, 'Retenciòn en la fuente', 'Usuarios/retencionFuente', NULL, ''),
+(155, 135, 'IVA', 'Operaciones/iva', NULL, ''),
+(156, 135, 'Declaraciòn de renta', 'Operaciones/declaracion/renta', NULL, ''),
+(157, 135, 'Impuesto CREE', 'Operaciones/impuesto/cree', NULL, ''),
+(158, 135, 'Industria y comercio', 'Operaciones/industria/comercio', NULL, ''),
+(159, 136, 'Ajustes contables', 'ajuste_contable', NULL, ''),
+(160, 136, 'Provisiones', 'Operaciones/proviciones', NULL, '');
+
+
+INSERT INTO `sys_tipo_usuario` (`type_id`, `tipo`) VALUES (1, 'Root'),        (2, 'Empresa'),        (3, 'Sucursal'),        (4, 'Asociado'),        (5, 'Directivo'),        (6, 'Administrativo'),        (7, 'Comercial'),        (8, 'Operativo'),        (9, 'Cliente'),        (10, 'Proveedor');
+INSERT INTO `mae_cliente_joberp` (`empresa_id`, `regimen_empresa`, `naturaleza`,
+            `fecha_matricula`, `declara_renta`, `prefijo_documento`, `tipo_identificacion`,
+            `numero_identificacion`, `digitos_verificacion`, `nombre_legal`, `nombre_comercial`,
+            `id_representante_legal`, `ciudad_expedicion`, `direccion`, `ciudad`, `telefono`, `celular`,
+            `email`, `persona_contacto`, `cargo`, `pagina_web`, `descripcion_cliente`, `divisa_oficial`,
+            `documento_moneda_extranjera`, `logo`, `logo_json`, `fecha_registro`, `responsable_creacion`,
+            `demo`, `color_aplicativo`, `estado`)
+      VALUES (NULL, 'Desarrollo y Sistemas', 'r', '2019-04-04', 'r', 'r', '1', 'r', '1', 'r', 'r', 'r',
+              '1', 'r', '1', 'r', 'r', 'r', 'r', '1', 'r', 'r', 'r', 'r', 'r', 'r', '2019-04-04', '1', 'r', '#333333', '1');
+INSERT INTO `usuarios` (`user_id`, `empresa_id`, `type_id`, `login`, `email`, `password`, `intentos_errados`, `estado`, `token`)
+      VALUES ('1', '1', '1', 'root', 'root@sistemas', MD5('123456'), '0', '1', MD5('venezuela'));
+
+      INSERT INTO `sys_roles` (`id`, `type_id`, `json`, `json_edit`, `json_add`, `estado`) VALUES
+      (1, 1, '[\"129\",\"131\",\"133\",\"134\",\"137\",\"140\",\"147\",\"58\",\"59\",\"60\",\"61\",\"62\",\"119\",\"122\",\"152\",\"89\",\"91\",\"148\",\"99\",\"101\",\"143\",\"157\",\"158\",\"106\",\"107\",\"109\",\"110\",\"151\",\"112\",\"113\",\"68\",\"69\",\"71\",\"72\",\"73\",\"78\",\"82\",\"86\",\"88\",\"50\",\"51\",\"52\",\"156\",\"53\",\"55\",\"57\",\"74\",\"75\"]', 'null', 'null', 1),
+      (2, 2, '[\"99\",\"64\",\"65\"]', '[\"64\",\"65\"]', '[\"64\",\"65\"]', 1),
+      (3, 3, '[\"59\",\"119\",\"122\",\"152\",\"99\",\"106\",\"107\",\"151\",\"69\"]', '[\"119\",\"122\",\"152\",\"99\",\"106\",\"107\",\"151\"]', '[\"119\",\"122\",\"152\",\"99\",\"106\",\"107\",\"151\"]', 1),
+      (4, 4, '[\"12\",\"13\",\"14\",\"15\",\"16\",\"17\",\"18\",\"19\",\"20\",\"21\",\"22\",\"23\",\"24\",\"25\",\"26\",\"27\",\"28\",\"29\",\"30\",\"31\",\"32\",\"33\",\"34\",\"35\",\"88\",\"89\",\"90\",\"91\",\"92\",\"161\",\"93\",\"94\",\"95\",\"96\",\"97\",\"98\",\"99\",\"100\",\"101\",\"102\",\"103\",\"104\",\"105\",\"106\",\"107\",\"108\",\"109\",\"110\",\"44\",\"45\",\"46\",\"47\",\"48\",\"49\",\"50\",\"51\",\"52\",\"53\",\"54\",\"55\",\"56\",\"57\",\"58\",\"59\",\"60\",\"61\",\"62\",\"63\",\"64\",\"65\",\"66\",\"67\",\"68\",\"69\",\"70\",\"71\",\"72\",\"73\",\"74\",\"75\",\"76\",\"77\",\"82\",\"116\",\"117\",\"118\",\"119\",\"120\",\"122\",\"148\",\"151\",\"152\",\"156\",\"158\"]', '[\"140\",\"59\",\"60\",\"61\",\"62\",\"122\",\"152\",\"106\",\"107\",\"109\",\"151\",\"69\",\"71\",\"72\",\"73\",\"82\",\"74\",\"75\"]', '[\"140\",\"59\",\"60\",\"61\",\"62\",\"122\",\"152\",\"106\",\"107\",\"109\",\"151\",\"69\",\"71\",\"72\",\"73\",\"82\",\"74\",\"75\"]', 1),
+      (5, 5, '[\"140\",\"58\"]', '[\"58\"]', '[\"58\"]', 1),
+      (6, 6, '[\"127\"]', '', '', 0),
+      (7, 7, '[\"59\",\"60\",\"61\",\"62\",\"122\",\"106\",\"110\",\"151\",\"72\",\"73\",\"86\",\"88\"]', 'null', 'null', 1),
+      (8, 8, '[\"127\"]', '', '', 1),
+      (9, 9, '[\"140\",\"58\"]', 'null', 'null', 1),
+      (10, 10, '[\"59\",\"60\",\"61\",\"62\",\"119\",\"150\",\"152\",\"143\",\"106\",\"107\",\"109\",\"110\",\"151\",\"111\",\"69\",\"71\",\"72\",\"73\",\"78\",\"82\",\"86\",\"88\",\"74\",\"75\",\"76\"]', '[\"109\"]', '[\"109\"]', 1);
+
+INSERT INTO `usuarios` (`user_id`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `empresa_id`, `type_id`, `login`, `email`, `password`, `intentos_errados`, `estado`, `token`) VALUES (NULL, 'JORGE', 'ANTONIO', 'MENDEZ', 'BARBOZA', '1', '1', 'programandoweb', 'info@programandoweb.net', 'ec3e78ebf43d96a4729a1ad729631894f7b5102c97a64cd37dfc46fba13e7f9ae72b02d26cbd3b667faa736463af8f02b51ab4cfc3af8d8d476f4dce6900b2d9WA3XrlGrsPohDJRwe3Xzh8Iap1yvLcHY55kPXGgqDPA=', '0', '1', 'e65a612aab8846b113341efa15bba910');
+
+INSERT INTO `usuarios` (`user_id`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `empresa_id`, `type_id`, `login`, `email`, `password`, `intentos_errados`, `estado`, `token`) VALUES (NULL, 'ANDRES', 'FELIPE', 'CASTAÑEDA', '', '1', '1', 'casta', 'programandowealgoritmos@gmail.net', 'ec3e78ebf43d96a4729a1ad729631894f7b5102c97a64cd37dfc46fba13e7f9ae72b02d26cbd3b667faa736463af8f02b51ab4cfc3af8d8d476f4dce6900b2d9WA3XrlGrsPohDJRwe3Xzh8Iap1yvLcHY55kPXGgqDPA=', '0', '1', 'e65a612aab8846b113341efa15bba910');
+
+UPDATE `mae_cliente_joberp` SET `naturaleza` = 'Empresa', `declara_renta` = '1', `prefijo_documento` = '1', `tipo_identificacion` = '2', `numero_identificacion` = '123456', `nombre_legal` = 'BEL ServiceTM 2017 ', `nombre_comercial` = 'BEL ServiceTM 2017 ', `id_representante_legal` = '1', `direccion` = 'Pereira Risaralda', `telefono` = '00000000', `celular` = '00000000', `email` = 'pereira@workplace.com.co', `persona_contacto` = 'David Patiño Zapata', `pagina_web` = 'workplace.com.co', `descripcion_cliente` = 'Desarrollador de Software', `divisa_oficial` = 'COP', `documento_moneda_extranjera` = '1', `logo` = 'NA', `logo_json` = 'NA', `demo` = '0' WHERE `mae_cliente_joberp`.`empresa_id` = 1;
+
+UPDATE `usuarios` SET `primer_nombre` = 'David', `primer_apellido` = 'Patiño', `segundo_apellido` = 'Zapato', `login` = 'dpatinoz', `email` = 'dpatinoz@hotmail.com' WHERE `usuarios`.`user_id` = 1 AND `usuarios`.`empresa_id` = 1 AND `usuarios`.`type_id` = 1;
+UPDATE `mae_cliente_joberp` SET `regimen_empresa` = 'Responsable de IVA (RC)' WHERE `mae_cliente_joberp`.`empresa_id` = 1;
+
+UPDATE `mae_cliente_joberp` SET `id_representante_legal` = '123456' WHERE `mae_cliente_joberp`.`empresa_id` = 1;
+
+ALTER TABLE `mae_cliente_joberp` ADD `tipo_identificacion_representante_legal` INT(11) NOT NULL AFTER `nombre_comercial`;
+UPDATE `mae_cliente_joberp` SET `tipo_identificacion_representante_legal` = '3' WHERE `mae_cliente_joberp`.`empresa_id` = 1; 

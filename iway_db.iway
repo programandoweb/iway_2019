@@ -2204,4 +2204,16 @@ UPDATE `mae_cliente_joberp` SET `regimen_empresa` = 'Responsable de IVA (RC)' WH
 UPDATE `mae_cliente_joberp` SET `id_representante_legal` = '123456' WHERE `mae_cliente_joberp`.`empresa_id` = 1;
 
 ALTER TABLE `mae_cliente_joberp` ADD `tipo_identificacion_representante_legal` INT(11) NOT NULL AFTER `nombre_comercial`;
-UPDATE `mae_cliente_joberp` SET `tipo_identificacion_representante_legal` = '3' WHERE `mae_cliente_joberp`.`empresa_id` = 1; 
+UPDATE `mae_cliente_joberp` SET `tipo_identificacion_representante_legal` = '3' WHERE `mae_cliente_joberp`.`empresa_id` = 1;
+
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-sort' WHERE `sys_roles_modulos`.`id` = 141;
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-cash-register' WHERE `sys_roles_modulos`.`id` = 27;
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-cash-register' WHERE `sys_roles_modulos`.`id` = 137;
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-file-invoice-dollar' WHERE `sys_roles_modulos`.`id` = 154;
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-archive' WHERE `sys_roles_modulos`.`id` = 150;
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-calculator' WHERE `sys_roles_modulos`.`id` = 159;
+UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-hand-holding-usd' WHERE `sys_roles_modulos`.`id` = 153;
+UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 131;
+UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 8;
+UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 36;
+UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 148; 

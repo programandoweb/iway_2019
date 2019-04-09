@@ -88,9 +88,12 @@ class Util_model extends CI_Model {
   private function template_header($return=false){
     $header = $this->get_header();
     $html 	=	file_get_contents(PATH_BASE.TEMPLATE.'/header.php');
-    if($return){
+		if($return){
       echo 	str_replace(array("{header}"), array($header),$html);
     }else {
+			if(@$this->Apanel){
+				$html	=	$html.$this->load->view("Template/Menu",array(),true);
+			}
       return 	str_replace(array("{header}"), array($header),$html);
     }
   }

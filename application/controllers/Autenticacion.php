@@ -17,12 +17,29 @@ class Autenticacion extends CI_Controller {
 	}
 
 	public function login(){
-		$this->util->set_js(["jquery.pgrw.min.js","bootstrap.min.js"]);
+		if(ENVIRONMENT=='development'){
+			$this->util->set_js(["jquery.pgrw.js","bootstrap.min.js"]);
+		}else{
+			$this->util->set_js(["jquery.pgrw.min.js","bootstrap.min.js"]);
+		}
 		$this->util->view("Autenticacion/login");
 	}
 
 	public function salir(){
+		destruye_session($this->user);
+		$this->session->unset_userdata('User');
+		$this->session->sess_destroy();
+		if ($this->input->is_ajax_request()) {
+			$this->Response 		=			array(	"message"	=>	"Cierre de sesión satisfactorio, será redirigido",
+												"code"		=>	"200");
+			echo answers_json($this->Response);
+		}else{
+			redirect(base_url());
+		}
+	}
 
+	public function error(){
+		echo 'NO EXISTE';
 	}
 
 }

@@ -164,6 +164,9 @@
 				callback_modal(data.message);
 			}
 			if(data.code==200){
+				if(data.redirect){
+					document.location.href	=	data.redirect;
+				}
 				var redirect = elem.find('[name="redirect"]');
 				if( redirect.length >0){
 					document.location.href	=	redirect.val();

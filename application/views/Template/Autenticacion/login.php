@@ -5,7 +5,7 @@
         <div class="square">
           <img src="<?php echo IMG?>logo-sm.png" class="rounded mx-auto d-block mb-5" alt="<?php echo SEO_NAME?>" title="<?php echo SEO_NAME?>" />
 
-          <?php echo form_open(current_url(),array('ajax' => 'true',"class"=>"form-signin"),array("id"=>$this->uri->segment(4)));	?>
+          <?php echo form_open(base_url("Api/post?modulo=Usuarios&m=login&formato=json"),array('ajax' => 'true',"class"=>"form-signin"),array("id"=>$this->uri->segment(4)));	?>
             <div class="row">
               <div class="col">
                 <div class="input-group input-group-sm mb-3">
@@ -22,7 +22,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-sm2"><i class="fas fa-unlock-alt"></i></span>
                   </div>
-                  <input require type="password" placeholder="Clave Personal" name="login" class="form-control form-control-underline" aria-label="Small" aria-describedby="inputGroup-sizing-sm2">
+                  <input require type="password" placeholder="Clave Personal" name="password" class="form-control form-control-underline" aria-label="Small" aria-describedby="inputGroup-sizing-sm2">
                 </div>
               </div>
             </div>

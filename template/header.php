@@ -1,1 +1,1 @@
-<!DOCTYPE html><html> <head><meta charset="utf-8">{header}</head><body>
+<!DOCTYPE html><html> <head><meta charset="utf-8">{header}</head><body style="display:none;">

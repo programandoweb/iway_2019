@@ -87,14 +87,15 @@ class Util_model extends CI_Model {
 
   private function template_header($return=false){
     $header = $this->get_header();
+		$loading=	IMG."logo-gif.gif";
     $html 	=	file_get_contents(PATH_BASE.TEMPLATE.'/header.php');
 		if($return){
-      echo 	str_replace(array("{header}"), array($header),$html);
+      echo 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);
     }else {
 			if(@$this->Apanel){
 				$html	=	$html.$this->load->view("Template/Menu",array(),true);
 			}
-      return 	str_replace(array("{header}"), array($header),$html);
+      return 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);
     }
   }
 

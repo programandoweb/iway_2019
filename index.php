@@ -95,9 +95,9 @@ switch (ENVIRONMENT){
 	define('DOMINIO',$dominio);
 	define('SEO_KEYWORDS',"");
 	define('SEO_DESCRIPTION',"");
-	define('SEO_TITLE',"Iway®");
-	define('SEO_NAME',"Iway®");
-	define('SEO_GENERATOR',"@iway");
+	define('SEO_TITLE',"JobERP");
+	define('SEO_NAME',"JobERP");
+	define('SEO_GENERATOR',"@JobERP");
 	/*END HEADER*/
 
 	/*DATABASE*/

@@ -39,7 +39,7 @@ class Autenticacion extends CI_Controller {
 	}
 
 	public function error(){
-		echo 'NO EXISTE';
+		$this->util->view("Error_NoView");
 	}
 
 }

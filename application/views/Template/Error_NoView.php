@@ -6,7 +6,7 @@
 					<div class="container text-center">
             <img src="<?php echo IMG?>logo-sm.png" class="rounded mx-auto d-block mb-5" alt="<?php echo SEO_NAME?>" title="<?php echo SEO_NAME?>" />
 						<h1 class="font-weight-700 text-uppercase">Error 500 </h1>
-            <h3 class="font-weight-700 text-uppercase">Vista <?php echo $View;?> No existe</h3>
+            <h3 class="font-weight-700 text-uppercase">Vista No existe</h3>
 				    <h2>Contacte con el administrador de <?php echo SEO_NAME?></h2>
 				    <h5><?php echo SMTP_USER;?></h5>
 					</div>

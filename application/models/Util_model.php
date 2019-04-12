@@ -92,7 +92,7 @@ class Util_model extends CI_Model {
 		if($return){
       echo 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);
     }else {
-			if(@$this->Apanel){
+			if(@$this->Apanel && get("view")!="iframe"){
 				$html	=	$html.$this->load->view("Template/Menu",array(),true);
 			}
       return 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);

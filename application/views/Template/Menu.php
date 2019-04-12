@@ -6,6 +6,7 @@
 	$sucursal=(@get_empresa($this->user->empresa_id))?get_empresa($this->user->empresa_id)->nombre_legal.@get_empresa($this->user->empresa_id)->abreviacion.'</B>':'';
 	$img_perfil	= me_img_profile();
 ?>
+<div href="#Empresas" data-id="12" data-title="Empresa - JobERP" id="historyback" data-url=""></div>
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary yamm ">
 		<div class="container pr-3 pl-3">
@@ -72,9 +73,7 @@
                                   if($this->user->type_id==1){
                                 ?>
                                 <div class="pl-3">
-                                  <a data-id="<?php echo $v4->id; ?>" class="btn btn-link" href="<?php echo base_url($v4->url)?>" data-url="<?php echo base_url($v4->url)?>">
-                                      <?php echo $v4->modulo;?>
-                                  </a>
+																	<?php echo links($v4->url,$v4->id,$v4->modulo,$v4->modulo);?>
                                 </div>
                                 <?php
                                   }else if(array_search($v4->id,$this->user->menu['roles_modulos_permitidos'])===false){
@@ -82,9 +81,8 @@
                                   }else{
                                 ?>
                                 <div class="pl-3">
-                                  <a class="btn btn-link" data-id="<?php echo $v4->id; ?>" href="<?php echo base_url($v4->url)?>" data-url="<?php echo base_url($v4->url)?>">
-                                    <?php echo $v4->modulo;?>
-                                  </a>
+																	<?php echo links($v4->url,$v4->id,$v4->modulo,$v4->modulo);?>
+
                                 </div>
                               <?php }}?>
                             </div>

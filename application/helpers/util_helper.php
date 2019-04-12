@@ -1,5 +1,15 @@
 <?php
   /**/
+
+  function links($url,$id,$title,$modulo,$class="btn btn-link"){
+    return '<a href="#'.$url.'"
+                data-id="'.$id.'"
+                data-title="'.$title . ' - ' . SEO_TITLE.'"
+                class="'.$class.'"
+                data-url="'.base_url($url).'">
+                '.$modulo.'</a>';
+  }
+
   function chequea_session($user){
   	$ci=&get_instance();
     if(!isset($user)){
@@ -212,5 +222,60 @@
         $ci->db->delete("sys_session");
         return true;
       }
+    }
+    function avatar($id){
+      $url  = IMG.'uploads/';
+      $path = PATH_IMG.'uploads/';
+      $ruta = $id.'/avatar';
+      $extension_permitida=array(".jpg",".jpeg",".png",".gif");
+      $return='<img src="'.IMG.'avatar.png" class="rounded-circle avatar-md" />';
+      foreach ($extension_permitida as $key => $value) {
+        if(file_exists($path.$ruta.$value)){
+          $return='<img src="'.IMG.$ruta.$value.'" class="rounded-circle avatar-md" />';
+        }
+      }
+      return $return;
+    }
+
+    function foreach_edit($data,$count=0){
+      $ci           =&  get_instance();
+    	$return	=	array();
+    	foreach($data as $k => $v){
+    		$id	=	'';
+    		foreach($v as $k2 => $v2){
+    			if($k2=='id'){
+    				$id	=	$v2;
+    			}
+    			if($k2=='nombre'){
+    				$nombre	=	$v2;
+    			}
+    			$explode	=	explode("::",$k2);
+    			if($k2=="edit"){
+    			  $return[$k][$k2]	   =		links($ci->uri->segment(1).'/Add/'.$id."?view=iframe","Editar_LB".$id,"Editar","<i class='fas fa-edit'></i>","pgrw_iframe");
+    			}else if($k2=="estatus"){
+    				$return[$k][$k2]	=		($v2==1)?'Activo':'Inactivo';
+    			}else if($explode[0]=="json" && isset($explode[1])){
+    				$json_decode				=	json_decode($v->json);
+    				$label							=	$explode[1];
+    				$return[$k][$label]	=	@$json_decode->$label;
+    			}else if($k2=="nombre_frontOffice"){
+    				$return[$k][$k2]	=		'<a target="_blank" title="Ver" href="'.base_url($v2.$id).'-BackOffice">'.$nombre.' <i class="fas fa-search"></i></a>';
+    			}else if($k2=="json"){
+    				$return[$k][$k2]			=		$v2;
+    				$return[$k]["nombres"]		=		@json_decode($v2)->nombres .' '.@json_decode($v2)->apellidos;
+    				$return[$k]["ciudad"]		=		@json_decode($v2)->ciudad;
+    				$return[$k]["departamento"]	=		@json_decode($v2)->departamento;
+    				$return[$k]["title"]					=	@json_decode($v2)->name;
+    			}else{
+    				$return[$k][$k2]	=		$v2;
+    			}
+    			if(@$return[$k]["title"]==''){
+    				@$return[$k]["title"]=$v->title;
+    			}
+    		}
+    	}
+    	return array(	"data"=>$return,
+    								"recordsTotal"=>$count,
+    								"recordsFiltered"=>$count);
     }
 ?>

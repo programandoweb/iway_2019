@@ -2216,4 +2216,7 @@ UPDATE `sys_roles_modulos` SET `ico` = 'fas fa-hand-holding-usd' WHERE `sys_role
 UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 131;
 UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 8;
 UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 36;
-UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 148; 
+UPDATE `sys_roles_modulos` SET `ico` = 'fab fa-salesforce' WHERE `sys_roles_modulos`.`id` = 148;
+ALTER TABLE `mae_cliente_joberp` CHANGE `color_aplicativo` `color_aplicativo` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+ALTER TABLE `mae_cliente_joberp` CHANGE `logo` `logo` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+ALTER TABLE `mae_cliente_joberp` CHANGE `logo_json` `logo_json` VARCHAR(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL; 

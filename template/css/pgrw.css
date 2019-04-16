@@ -13,6 +13,11 @@ html,body{
   padding-top: 60px;
   min-height: 100%;
 }
+h1,h2,h3,h4,h5,h6,
+.submenu .navbar-brand{
+  color: #00E75C;
+  font-weight: bold;
+}
 .height-100{
   height: 100%;
 }
@@ -29,7 +34,7 @@ html,body{
   width: 70%;
   position: absolute;
   left: 50%;
-  top: 30%;
+  top: 50%;
   transform: translate(-50%, -50%);
 }
 form {
@@ -1277,10 +1282,9 @@ td.dias{
 	color:#6E6E6E;
   border-bottom: solid 1px #00D25A;
   font-size: 14px;
-  font-weight: bold;
 }
 .dropdown-menu .btn{
-	line-height: 0.25;
+	line-height: 0.55;
 }
 .dropdown-menu .grid-demo [class*="col-"] {
     line-height: 1;
@@ -1668,9 +1672,10 @@ a.article:hover {
 }
 
 .modal-header{
-	min-height: 60px;
+	min-height: 40px;
 	background: #6E6E6E;
 	color: white;
+  cursor: move;
 }
 
 #smartwizard{
@@ -1705,4 +1710,26 @@ a.article:hover {
 }
 .form-control-alert{
 	color: red;
+}
+.toggle_pass{
+  font-size: 12px;
+  cursor: pointer;
+}
+.text-secondary{
+  color: #00E75C !important;
+}
+.prueba{
+  color:#4ae387
+}
+.iframe{
+  padding:0px;
+  margin:0px;
+  border: 0px;
+  width: 100%;
+}
+.yamm .dropdown.yamm-fw .dropdown-menu {
+  margin-top: 12px;
+}
+.table td, .table th {
+  padding: 3px 4px;
 }

@@ -17,9 +17,15 @@ class Apanel extends CI_Controller {
 		if(ENVIRONMENT=='development'){
 			$this->util->set_js(["bootstrap.min.js","jquery.fancybox.min.js"]);
 			$this->util->set_css(["yamm.css","jquery.fancybox.min.css"]);
+			$this->util->set_thirdParty([	"js"=>[	"DataTables/datatables.min"],
+																		"css"=>["DataTables/datatables.min"]
+																	]);
 		}else{
 			$this->util->set_js(["bootstrap.min.js","jquery.fancybox.min.js"]);
 			$this->util->set_css(["yamm.css","jquery.fancybox.min.css"]);
+			$this->util->set_thirdParty([	"js"=>[	"DataTables/datatables.min"],
+																		"css"=>["DataTables/datatables.min"]
+																	]);
 		}
 		if(empty($this->user) && $this->uri->segment(2)!='Login'){
 			redirect(base_url("Autenticacion/login"));	return;

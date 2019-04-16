@@ -9,7 +9,7 @@
 <div href="#Empresas" data-id="12" data-title="Empresa - JobERP" id="historyback" data-url=""></div>
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary yamm ">
-		<div class="container pr-3 pl-3">
+		<div class="container-fluid pr-3 pl-3">
       <a class="navbar-brand" href="<?php echo base_url("Apanel")?>">
 				<div class="d-sm-none">
         	<img src="<?php echo IMG?>logo-xsmall.png" class="d-block" alt="<?php echo SEO_NAME?>" title="<?php echo SEO_NAME?>" />
@@ -105,8 +105,13 @@
               <img id="profile" class="rounded-circle" style="width:30px;" src="<?php echo $img_perfil;?>">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Cambiar Password</a>
-              <a class="dropdown-item" href="<?php echo base_url("Autenticacion/Salir")?>">Cerrar Sesión</a>
+              <!--a class="dropdown-item" href="#">Cambiar Password</a-->
+							<a	href="#Api/post?modulo=Usuarios&m=logout&formato=json"
+									data-id="12"
+									data-formato="json"
+									data-title="LogOut - <?php echo SEO_TITLE;?>"
+									class="dropdown-item"
+									data-url="<?php echo base_url("Api/post?modulo=Usuarios&m=logout&formato=json")?>">Cerrar Sesión</a>
             </div>
           </li>
         </ul>

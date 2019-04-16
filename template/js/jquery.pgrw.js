@@ -11,9 +11,8 @@
 			$forms,
 			$submit,
 			$ApiRest,
-			$modal_base	= 	$('<div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"></div><div class="modal-footer"></div></div></div></div>');
-
-	publicMethod 	=	$[pluginName]	=	function (options) {
+			$modal_base	= 	$('<div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h6 class="p-0 m-0 h5">Atención</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"></div><div class="modal-footer"></div></div></div></div>');
+			publicMethod 	=	$[pluginName]	=	function (options) {
 		var $obj 	= 	this;
 		if($.isFunction($obj)){
 			$forms	=	publicMethod.formsAjax();
@@ -98,7 +97,7 @@
 			if($(v).val()==''){
 				inpustRequireEmpty($(v));
 				return_value	=	false;
-				callback_popover($(v),"Please complete the required information");
+				callback_modal("Por favor complete la información");
 				return false;
 			}else{
 				return_value	=	true;
@@ -212,29 +211,46 @@
 	function make_modal_confirm(){
 		$modal			=	$modal_base.clone();
 		var contenido  	=	$modal.find(".modal-dialog").find(".modal-content");
-			$modal.addClass("pgrw_modal_confirm_"+pluginName).attr("aria-labelledby","modalLabel_confirm_"+pluginName).find(".modal-dialog").addClass("modal-md");
-			contenido.find(".modal-header").html("<h5>Attention</h5>");
-			contenido.find(".modal-footer").html('<button type="button" class="btn btn-primary aceptar" data-dismiss="modal">To accept</button><button type="button" class="btn btn-danger cancelar" data-dismiss="modal">Cancelar</button>');
+		$modal.addClass("pgrw_modal_confirm_"+pluginName).attr("aria-labelledby","modalLabel_confirm_"+pluginName).find(".modal-dialog").addClass("modal-md");
+		contenido.find(".modal-header h6").html('Atención');
+		contenido.find(".modal-footer").html('<!--button type="button" class="btn btn-primary aceptar" data-dismiss="modal">To accept</button><button type="button" class="btn btn-danger cancelar" data-dismiss="modal">Cancelar</button-->');
 		$("body").append($modal);
 	}
 
 	function make_modal_alert(){
 		$modal			=	$modal_base.clone();
 		var contenido  	=	$modal.find(".modal-dialog").find(".modal-content");
-			$modal.addClass("pgrw_modal_alert_"+pluginName).attr("aria-labelledby","modalLabel_alert_"+pluginName).find(".modal-dialog").addClass("modal-sm");
-			contenido.find(".modal-header").html("<h5>Attention</h5>");
-			contenido.find(".modal-footer").html('<button type="button" class="btn btn-primary aceptar" data-dismiss="modal">To accept</button>');
+		$modal.addClass("pgrw_modal_alert_"+pluginName).attr("aria-labelledby","modalLabel_alert_"+pluginName).find(".modal-dialog").addClass("modal-sm");
+		contenido.find(".modal-header h6").html('Atención');
+		contenido.find(".modal-footer").html('<!--button type="button" class="btn btn-primary aceptar" data-dismiss="modal">To accept</button-->');
 		$("body").append($modal);
 	}
 
 	function callback_modal(message){
 		$modal.find(".modal-body").html('<div class="text-center">'+message+'</div>');
 		$modal.modal({ keyboard: false})
+		$modal.find(".modal-header").on("mousedown", function(mousedownEvt) {
+	    var $draggable = $(this);
+	    var x = mousedownEvt.pageX - $draggable.offset().left,
+	        y = mousedownEvt.pageY - $draggable.offset().top;
+	    $("body").on("mousemove.draggable", function(mousemoveEvt) {
+	        $draggable.closest(".modal-dialog").offset({
+	            "left": mousemoveEvt.pageX - x,
+	            "top": mousemoveEvt.pageY - y
+	        });
+	    });
+	    $("body").one("mouseup", function() {
+	        $("body").off("mousemove.draggable");
+	    });
+	    $draggable.closest(".modal").one("bs.modal.hide", function() {
+	        $("body").off("mousemove.draggable");
+	    });
+		});
 	}
 
 	function callback_popover(selector,message){
 			var _popover = selector.popover({
-								title: 'Attention',
+								title: 'Atención',
 								trigger: 'manual',
 								placement: 'bottom',
 								content: message,

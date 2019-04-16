@@ -6,7 +6,7 @@
         $this->load->view("Template/SubMenu");
       ?>
       <div class = "table-responsive">
-        <div class="p-5">
+        <div class="pr-5 pl-5 pt-2">
           <table class="table">
             <thead>
               <tr>

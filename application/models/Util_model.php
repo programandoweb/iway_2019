@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Util_model extends CI_Model {
 
-	var $dominio,$current_url,$title,$description,$keywords,$author,$extra,$app_id,$site_name,$url,$image,$js,$css;
+	var $dominio,$current_url,$title,$description,$keywords,$author,$extra,$app_id,$site_name,$url,$image,$js,$css,$skipHeader,$thirdParty;
 
 	public function __construct(){
 		$this->dominio=DOMINIO;
@@ -16,6 +16,8 @@ class Util_model extends CI_Model {
 		$this->extra='';
     $this->app_id='';
     $this->css=$this->js=$this->site_name='';
+		$this->thirdParty	=	"";
+		$this->skipHeader =	false;
 	}
 
 	public function get_header(){
@@ -52,23 +54,28 @@ class Util_model extends CI_Model {
     // $return .= '<script src="'.JS.'pgrw.js"></script>';
 		// $return .= $this->css;
 		// $return .= $this->js;
-    return $return;
-	}
-
-
-	public function get_footer(){
-		$return = '<link rel="stylesheet" href="'.CSS.'bootstrap.min.css">';
+		$return .= '<link rel="stylesheet" href="'.CSS.'bootstrap.min.css">';
 		$return .= '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">';
 		$return .= '<link rel="stylesheet" href="'.CSS.'pgrw.css">';
 		$return .= '<script src="'.JS.'jquery-3.3.1.min.js"></script>';
 		$return .= '<script src="'.JS.'pgrw.js"></script>';
 		$return .= $this->css;
 		$return .= $this->js;
+		$return .= $this->thirdParty;
+		$return .= '<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">';
+		$return .= '<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>';
+    return $return;
+	}
+
+
+	public function get_footer(){
+		$return="";
 		return $return;
 	}
 
   public function view($view,$breadcrumb=false){
-    if(!$this->input->is_ajax_request()){
+		//pre($this->skipHeader);
+		if(!$this->input->is_ajax_request()){
       $this->load->view('Template/Header',array("header"=>$this->template_header()));
       $this->load->view('Template/Flash');
     	if($breadcrumb){
@@ -85,14 +92,14 @@ class Util_model extends CI_Model {
     }
   }
 
-  private function template_header($return=false){
+  public function template_header($return=false){
     $header = $this->get_header();
 		$loading=	IMG."logo-gif.gif";
     $html 	=	file_get_contents(PATH_BASE.TEMPLATE.'/header.php');
 		if($return){
-      echo 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);
+			echo 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);
     }else {
-			if(@$this->Apanel && get("view")!="iframe"){
+			if(@$this->Apanel && get("view")!="iframe" && !$this->skipHeader){
 				$html	=	$html.$this->load->view("Template/Menu",array(),true);
 			}
       return 	str_replace(array("{header}","{loading}"), array($header,$loading),$html);
@@ -109,10 +116,38 @@ class Util_model extends CI_Model {
     }
   }
 
+	public function set_thirdParty($array){
+		$thirdParty	=	"";
+		foreach ($array as $key => $value) {
+			switch($key){
+        case "js":
+					if(is_array($value)){
+						foreach ($value as $v) {
+							$thirdParty	.= '<script async src="'.THIRDPARTY.$v.'.js"></script>';
+						}
+					}else{
+						$thirdParty	.= '<script async src="'.THIRDPARTY.$value.'.js"></script>';
+					}
+        break;
+        case "css":
+					if(is_array($value)){
+						foreach ($value as $v) {
+							$thirdParty	.= '<link rel="stylesheet" href="'.THIRDPARTY.$v.'.css">';
+						}
+					}else{
+						$thirdParty	.= '<link rel="stylesheet" href="'.THIRDPARTY.$value.'.css">';
+					}
+
+        break;
+      }
+		}
+		return $this->thirdParty 		=		$thirdParty;
+	}
+
 	public function set_js($array){
 		$js	=	'';
 		foreach ($array as $key => $value) {
-			$js	.=	'<script src="'.JS.$value.'" async></script>';
+			$js	.=	'<script src="'.JS.$value.'"></script>';
 		}
 		return $this->js 		=	$js;
 	}
@@ -165,6 +200,9 @@ class Util_model extends CI_Model {
 		return $this->extra 	=	$extra;
 	}
 
+	public function skipHeader(){
+		return $this->skipHeader 	=	true;
+	}
 
 }
 ?>

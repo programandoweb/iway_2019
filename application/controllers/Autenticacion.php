@@ -18,9 +18,9 @@ class Autenticacion extends CI_Controller {
 
 	public function login(){
 		if(ENVIRONMENT=='development'){
-			$this->util->set_js(["jquery.pgrw.js","bootstrap.min.js"]);
+			$this->util->set_js(["popper.min.js","bootstrap.min.js","jquery.pgrw.js"]);
 		}else{
-			$this->util->set_js(["jquery.pgrw.min.js","bootstrap.min.js"]);
+			$this->util->set_js(["popper.min.js","bootstrap.min.js","jquery.pgrw.min.js"]);
 		}
 		$this->util->view("Autenticacion/login");
 	}
@@ -42,4 +42,98 @@ class Autenticacion extends CI_Controller {
 		$this->util->view("Error_NoView");
 	}
 
+	public function Recover(){
+		$this->util->view("Autenticacion/Recover");
+	}
+
+	public function registertoken(){
+		if(method_exists($this->Autenticacion,"set_user_by_token") && $this->uri->segment(3)){
+			$this->Autenticacion->set_user_by_token($this->uri->segment(3));
+			redirect(base_url("autenticacion/registertoken"));
+			return;
+		}
+		//print_r($this->session);
+		$this->util->set_title("Register - ".SEO_TITLE);
+		$this->load->view('Template/Header');
+		$this->load->view('Template/Flash');
+		$this->load->view('Template/Autenticacion/ActiveUser');
+		$this->load->view('Template/Footer');
+	}
+
+	public function recovertoken(){
+		if(post()){
+			$set	=	$this->Autenticacion->setrecovertoken(post());
+			if ($this->input->is_ajax_request()) {
+				if($set){
+					$this->Response 		=			array(	"message"	=>	"Los datos han sido guardados correctamente",
+																				"code"		=>	"200");
+				}else{
+					$this->Response 		=			array(	"message"	=>	"Lo siento, presentamos un problema y no pudimos guardar los datos",
+																"code"		=>	"203");
+				}
+				echo answers_json($this->Response);
+			}
+			return;
+		}
+		$data	=	user_x_token($this->uri->segment(3));
+		if(empty($data)){
+
+		}else{
+
+			$this->util->set_title("Restablecer Contraseña - ".SEO_TITLE);
+			$this->load->view('Template/Header');
+			$this->load->view('Template/Autenticacion/RestablecerContrasena',array("row",$data));
+			$this->load->view('Template/Footer');
+		}
+	}
+
+	public function recoverpass(){
+		$this->load->model('Autenticacion_model');
+		$this->Autenticacion 	= 	new Autenticacion_model();
+		if($this->Autenticacion){
+			if(method_exists($this->Autenticacion,"get_user_by_email")){
+				$user			=	$this->Autenticacion->get_user_by_email(post());
+				if(empty($user)){
+					echo json_encode(array(	"message_iframe"	=>	"Error, Usuario no encontrado",
+																				"code"		=>	"203"));
+					return;
+				}
+				$user->token	=	md5(date("Y-m-d H:i:s"));
+				$this->db->where('user_id', $user->user_id)->update("usuarios", array("token"=>$user->token));
+				$var		=	array(
+									"view"		=>	"recover",
+									"data"		=>	array(	"userName"	=>	$user->primer_nombre.' '.$user->segundo_nombre.' '.$user->primer_apellido.' '.$user->segundo_apellido,
+															"href"		=>	base_url("autenticacion/recovertoken/".$user->token)
+								));
+				$mensaje	=	set_template_mail($var);
+				if($mensaje){
+					$var		=	array(
+										"recipient"		=>	$user->email_user,
+										"subject"		=>	"Recuperación de contraseña en ".SEO_NAME,
+										"body"			=>	$mensaje
+									);
+					$sendmail	=	send_mail($var);
+					if(!$sendmail['error']){
+						$this->Response 		=			array(	"message_iframe"	=>	"Envío de reinicio de clave exitoso, revise su correo electrónico",
+															"code"		=>	"200",
+															"parent"    =>  true);
+					}else{
+						$this->Response 		=			array(	"message_iframe"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
+															"code"		=>	"203");
+					}
+
+				}else{
+					$this->Response 		=			array(		"message_iframe"	=>	"Error, no se puedo reiniciar la clave, reintente más tarde",
+																	"code"		=>	"203");
+				}
+			}else{
+				$this->Response 		=			array(	"message_iframe"	=>	"Error, método no encontrado",
+															"code"		=>	"203");
+			}
+		}else{
+			$this->Response 		=			array(	"message_iframe"	=>	"Error, Clase no encontrado",
+														"code"		=>	"203");
+		}
+		echo json_response($this->Response);
+	}
 }

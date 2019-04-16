@@ -9,7 +9,7 @@ class Api extends CI_Controller {
 	public function __construct(){
     parent::__construct();
     $this->load->library('CI_Minifier');
-
+    $this->user=$this->session->userdata('User');
   }
 
 	public function index(){

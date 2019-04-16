@@ -4,6 +4,36 @@ class Usuarios_model extends CI_Model {
 
 	var $fields,$result,$where,$total_rows,$pagination,$search;
 
+	public function SearchUser(){
+		$list		=		get("list",false);
+		$query	=		get("query");
+		$tabla 	= 	"usuarios t1";
+		$this->db->select("login");
+		$this->db->from($tabla);
+		$this->db->where('login',$query);
+		if($list){
+			$rows=$this->db->get()->result();
+			return (!empty($rows)?array("response"=>$rows):array("response"=>"NULL"));
+		}else{
+			$row=$this->db->get()->row();
+			return (!empty($row)?array("response"=>$row):array("response"=>"NULL"));
+			//return (!empty($row)?$row:array());
+		}
+	}
+
+	public function logout(){
+		$this->user=$this->session->userdata('User');
+		destruye_session($this->user);
+		$this->session->unset_userdata('User');
+		$this->session->sess_destroy();
+		if ($this->input->is_ajax_request()) {
+			return array(	"message"=>"Hasta pronto, ".SEO_TITLE,
+										"redirect"=>base_url("Autenticacion/login"));
+		}else{
+			redirect(base_url());
+		}
+	}
+
 	public function login(){
 		$data 	= 	$this->db->select('	user_id,
 																		empresa_id,
@@ -41,7 +71,8 @@ class Usuarios_model extends CI_Model {
 					}
 					if($session   = ini_session($data)){
 						$this->set_session_login($session);
-						return $data;
+						return array(	"message"=>"Bienvenido a ".SEO_TITLE,
+													"redirect"=>base_url("Apanel"));
 					}else{
 						return false;
 					}
@@ -65,6 +96,31 @@ class Usuarios_model extends CI_Model {
 
 	private function set_session_login($data){
 		$this->session->set_userdata(array('User'=>$data));
+	}
+	public function get_all2(){
+		$tabla=  "mae_cliente_joberp t1";
+		$tabla2	="usuarios t2";
+		$tabla3=  "sys_roles t3";
+		$this->db->select('t1.*,t2.*, t3.*')->from($tabla)
+							->join($tabla2,"t1.empresa_id = t2.empresa_id","left")
+							->join($tabla3,"t2.type_id = t3.type_id","left")
+							->where("t2.estado",1);
+		if($this->user->type_id <> 1){
+			$this->db->where("t1.empresa_id",$this->user->empresa_id);
+		}
+		$this->result["Activos"]=$this->db->get()->result();
+
+		$tabla=  "mae_cliente_joberp t1";
+		$tabla2	="usuarios t2";
+		$tabla3=  "sys_roles t3";
+		$this->db->select('t1.*,t2.*, t3.*')->from($tabla)
+							->join($tabla2,"t1.empresa_id = t2.empresa_id","left")
+							->join($tabla3,"t2.type_id = t3.type_id","left")
+							->where("t2.estado",0);
+		if($this->user->type_id <> 1){
+			$this->db->where("t1.empresa_id",$this->user->empresa_id);
+		}
+		$this->result["Inactivos"]=$this->db->get()->result();
 	}
 }
 ?>

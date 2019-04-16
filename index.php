@@ -127,6 +127,7 @@ switch (ENVIRONMENT){
 	define('IMG',DOMINIO."/images/");
 	define('CSS',DOMINIO."/template/css/");
 	define('JS',DOMINIO."/template/js/");
+	define('THIRDPARTY',DOMINIO."/template/thirdParty/");
 	define('PATH_IMG',dirname(__FILE__)."/images/");
 	/*END FILES*/
 
